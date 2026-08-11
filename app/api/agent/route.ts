@@ -12,7 +12,7 @@ export async function POST(request: Request) {
   }
 
   const req = parseMealRequest(body);
-  const { suggestion, source, notice } = await suggestMeal(req, todaySeed());
+  const { suggestion, source, notice, web } = await suggestMeal(req, todaySeed());
 
   const recipe = getRecipe(suggestion.slug);
   if (!recipe) {
@@ -22,6 +22,7 @@ export async function POST(request: Request) {
   return Response.json({
     source,
     notice,
+    web,
     suggestion,
     recipe: toSummary(recipe, req.people),
     alternatives: summarize(suggestion.alternatives, req.people),

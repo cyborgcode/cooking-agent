@@ -228,6 +228,30 @@ export function TodayClient({
               </div>
 
               {result.notice && <Notice icon="info">{result.notice}</Notice>}
+
+              {result.web && result.web.sources.length > 0 && (
+                <details className="rounded-xl bg-surface-2 p-3">
+                  <summary className="flex cursor-pointer items-center gap-1.5 text-xs font-bold text-muted">
+                    <Icon name="web" size={13} />
+                    {t("webContext")}
+                  </summary>
+                  <ul className="mt-2 space-y-1">
+                    {result.web.sources.map((source) => (
+                      <li key={source.url}>
+                        <a
+                          href={source.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-start gap-1.5 text-[11px] text-accent hover:underline"
+                        >
+                          <Icon name="link" size={11} className="mt-0.5 shrink-0" />
+                          <span className="min-w-0 truncate">{source.title}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
             </div>
           </section>
 

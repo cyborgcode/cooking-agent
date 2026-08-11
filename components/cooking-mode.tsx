@@ -12,7 +12,23 @@ import { CATEGORY_LABELS, TAG_LABELS, formatQty } from "@/lib/i18n";
 import { formatMinutes, formatTND, scaleQty } from "@/lib/scale";
 import type { CookingPayload } from "@/lib/view";
 
-export function CookingMode({ recipe }: { recipe: CookingPayload }) {
+export function CookingMode({
+  recipe,
+  sources,
+  disclaimer,
+  allowShopping = true,
+}: {
+  recipe: CookingPayload;
+  /** Pages d'origine, pour une recette reconstituée depuis le web. */
+  sources?: { title: string; url: string }[];
+  /** Avertissement affiché en tête de fiche. */
+  disclaimer?: string;
+  /**
+   * Les recettes venues du web ne sont pas dans le répertoire : la liste de
+   * courses ne saurait pas les retrouver, on masque donc le bouton.
+   */
+  allowShopping?: boolean;
+}) {
   const { t, s, lang } = useLang();
 
   const [people, setPeople] = useLocalState<number>(STORAGE_KEYS.people, recipe.baseServes);
@@ -202,6 +218,12 @@ export function CookingMode({ recipe }: { recipe: CookingPayload }) {
 
           <p className="text-sm leading-relaxed text-muted">{s(recipe.description)}</p>
 
+          {disclaimer && (
+            <Notice icon="warning" tone="warning">
+              {disclaimer}
+            </Notice>
+          )}
+
           <div className="flex flex-wrap gap-1.5">
             <Badge icon={recipe.category} tone="primary">
               {CATEGORY_LABELS[recipe.category][lang]}
@@ -344,6 +366,27 @@ export function CookingMode({ recipe }: { recipe: CookingPayload }) {
         </section>
       )}
 
+      {sources && sources.length > 0 && (
+        <section>
+          <SectionTitle icon="web">{t("sourcesUsed")}</SectionTitle>
+          <ul className="space-y-1.5">
+            {sources.map((source) => (
+              <li key={source.url}>
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="card flex items-start gap-2 p-2.5 text-xs transition hover:border-primary"
+                >
+                  <Icon name="link" size={13} className="mt-0.5 shrink-0 text-muted" />
+                  <span className="min-w-0 truncate">{source.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <div className="no-print sticky bottom-20 flex gap-2">
         <Button
           icon="heat"
@@ -355,15 +398,17 @@ export function CookingMode({ recipe }: { recipe: CookingPayload }) {
         >
           {t("startCooking")}
         </Button>
-        <Button
-          variant="secondary"
-          icon={meals.includes(recipe.slug) ? "done" : "add"}
-          onClick={addToShopping}
-          disabled={meals.includes(recipe.slug)}
-          className="flex-1 shadow-lg"
-        >
-          {meals.includes(recipe.slug) ? t("added") : t("addToShopping")}
-        </Button>
+        {allowShopping && (
+          <Button
+            variant="secondary"
+            icon={meals.includes(recipe.slug) ? "done" : "add"}
+            onClick={addToShopping}
+            disabled={meals.includes(recipe.slug)}
+            className="flex-1 shadow-lg"
+          >
+            {meals.includes(recipe.slug) ? t("added") : t("addToShopping")}
+          </Button>
+        )}
       </div>
     </div>
   );

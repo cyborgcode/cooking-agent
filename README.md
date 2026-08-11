@@ -23,6 +23,12 @@ sont des pictogrammes vectoriels (lucide).
 - **Garde-manger** — ce que vous cochez sort des courses et pèse dans le
   choix du plat.
 - **Menu de la semaine** — sept plats variés, sans répétition, de saison.
+- **Prix du marché en direct** — l'agent va chercher sur le web ce que valent
+  réellement les produits en ce moment, et affiche l'écart avec l'estimation
+  intégrée, chaque chiffre rattaché à sa source et à sa date.
+- **Recettes trouvées sur le web** — un plat absent du répertoire est cherché
+  sur des sites de cuisine, reconstitué en étapes bilingues et cuisiné dans le
+  même mode pas-à-pas, avec ses sources affichées.
 
 ## Adaptation au marché tunisien
 
@@ -50,7 +56,7 @@ npm run dev
 
 L'application tourne sur http://localhost:3000.
 
-### La clé Gemini est facultative
+### Les deux clés sont facultatives
 
 Avec `GEMINI_API_KEY` renseignée, c'est **Gemini** qui choisit le plat parmi
 les candidats présélectionnés et rédige la justification en français et en
@@ -66,6 +72,28 @@ Dans les deux cas, **les chiffres ne viennent jamais du modèle** : coûts,
 quantités et listes de courses sont recalculés localement à partir du
 catalogue. Le modèle choisit et explique ; il ne compte pas.
 
+#### La recherche web (Tavily)
+
+`TAVILY_API_KEY` active trois choses : les prix du marché en direct, les
+recettes cherchées sur le web, et un court contexte sur l'état du marché
+transmis à Gemini avant qu'il ne choisisse le plat du jour. L'hôte
+`api.tavily.com` doit être joignable depuis le serveur.
+
+Chaque fonction se dégrade seule, sans jamais casser la page :
+
+| | sans Tavily | Tavily seul | Tavily + Gemini |
+|---|---|---|---|
+| Prix du marché | estimations intégrées | estimations + sources à consulter | prix relevés, datés et attribués |
+| Recette du web | fonction annoncée comme inactive | pages trouvées, mise en recette impossible | recette complète en français et en derja |
+| Plat du jour | planificateur local | planificateur local | suggestion située dans le marché du moment |
+
+**Le contenu web est traité comme une donnée, jamais comme une consigne.**
+Les extraits sont encadrés dans les prompts et accompagnés d'une instruction
+explicite de les ignorer s'ils contiennent des ordres. Le modèle ne peut de
+toute façon renvoyer qu'un plat de la liste fournie, revalidé à la réception,
+et les prix extraits sont bornés et rattachés à une source réellement
+présente dans les extraits — sans quoi ils sont écartés.
+
 ## Architecture
 
 ```
@@ -76,6 +104,10 @@ app/
   api/agent/                Suggestion du jour (Gemini → local)
   api/semaine/              Menu de la semaine (local)
   api/courses/              Liste de courses consolidée
+  api/prix/                 Relevé des prix du marché (web)
+  api/decouvrir/            Recherche d'une recette sur le web
+  prix/                     Prix du marché
+  recettes/decouvrir/       Recette trouvée sur le web
 
 lib/
   types.ts                  Modèle de domaine, libellés bilingues
@@ -85,6 +117,9 @@ lib/
   pricing.ts                Conversion d'unités, coûts, fusion des listes
   planner.ts                Score déterministe, adaptations, menu semaine
   gemini.ts                 Appel du modèle + repli local
+  tavily.ts                 Client de recherche web (cache, délais, repli)
+  market-prices.ts          Prix relevés sur le web et attribués
+  discover.ts               Mise en recette d'un plat trouvé sur le web
   i18n.ts                   Dictionnaire FR/AR, unités, mois, jours
   scale.ts                  Mise à l'échelle et formats (sans données)
   view.ts                   Modèles de vue + validation des requêtes
@@ -108,9 +143,14 @@ d'autre dans l'application.
 
 ```bash
 npm run build     # compilation + types + prérendu des 20 fiches
+npx next typegen  # types de routes — à lancer avant `tsc` sur un dépôt frais
 npx tsc --noEmit  # types seuls
 npx eslint .      # qualité
 ```
+
+`PageProps` est généré par Next à partir de l'arborescence des routes :
+sur une copie fraîche, lancez `next typegen` (ou un `next build`) avant
+`tsc --noEmit`, sinon les pages à paramètre ne compilent pas.
 
 ## Prix
 

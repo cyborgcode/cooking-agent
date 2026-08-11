@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { Icon, type IconName } from "@/components/icons";
 import { useLang } from "@/components/lang-provider";
 import { STORAGE_KEYS, useLocalState } from "@/components/use-local-state";
@@ -87,6 +88,11 @@ export function ShoppingClient({ shops }: { shops: ShopInfo[] }) {
 
   const alreadyOwned = data?.lines.filter((line) => line.inPantry) ?? [];
 
+  // On ne vérifie le prix que de ce qui reste à acheter.
+  const toCheck = (data?.lines ?? [])
+    .filter((line) => !line.inPantry)
+    .map((line) => line.ingredientId);
+
   const toggle = (key: string) =>
     setTicked((previous) => {
       const next = new Set(previous);
@@ -157,6 +163,12 @@ export function ShoppingClient({ shops }: { shops: ShopInfo[] }) {
             </span>
           </div>
           <Notice icon="info">{t("priceNotice")}</Notice>
+
+          <Link href={`/prix?ids=${encodeURIComponent(toCheck.join(","))}`} className="no-print">
+            <Button variant="secondary" icon="web" className="w-full">
+              {t("checkListPrices")}
+            </Button>
+          </Link>
         </section>
       )}
 

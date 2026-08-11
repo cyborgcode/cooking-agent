@@ -214,4 +214,9 @@ export interface AgentResponse {
   source: "gemini" | "local";
   /** Message d'information affiché quand on est retombé sur le mode local. */
   notice?: string;
+  /** Contexte web ayant servi à situer la suggestion, s'il y en a eu un. */
+  web?: {
+    query: string;
+    sources: { title: string; url: string }[];
+  };
 }

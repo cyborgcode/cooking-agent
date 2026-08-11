@@ -1,10 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { useLang } from "@/components/lang-provider";
 import { RecipeCard } from "@/components/recipe-card";
-import { EmptyState } from "@/components/ui";
+import { Button, EmptyState } from "@/components/ui";
 import { CATEGORY_LABELS, TAG_LABELS } from "@/lib/i18n";
 import type { RecipeCategory, RecipeTag } from "@/lib/types";
 import type { RecipeSummary } from "@/lib/view";
@@ -111,7 +112,13 @@ export function RecipesBrowser({ recipes }: { recipes: RecipeSummary[] }) {
       </p>
 
       {filtered.length === 0 ? (
-        <EmptyState icon="search" title={t("noResult")} />
+        <EmptyState icon="search" title={t("noResult")}>
+          <Link href={`/recettes/decouvrir?q=${encodeURIComponent(query.trim())}`}>
+            <Button icon="discover" className="mt-3">
+              {t("searchWebInstead")}
+            </Button>
+          </Link>
+        </EmptyState>
       ) : (
         <div className="space-y-2.5">
           {filtered.map((recipe) => (
@@ -119,6 +126,20 @@ export function RecipesBrowser({ recipes }: { recipes: RecipeSummary[] }) {
           ))}
         </div>
       )}
+
+      <Link
+        href={`/recettes/decouvrir${query.trim() ? `?q=${encodeURIComponent(query.trim())}` : ""}`}
+        className="card flex items-center gap-3 p-3.5 transition hover:border-primary"
+      >
+        <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
+          <Icon name="discover" size={20} />
+        </span>
+        <span className="min-w-0">
+          <span className="block text-sm font-bold">{t("discoverTitle")}</span>
+          <span className="block text-xs text-muted">{t("discoverHelp")}</span>
+        </span>
+        <Icon name="next" size={16} className="ms-auto shrink-0 text-muted rtl:rotate-180" />
+      </Link>
     </div>
   );
 }

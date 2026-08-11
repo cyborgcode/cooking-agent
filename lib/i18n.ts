@@ -124,6 +124,58 @@ export const UI: Dict = {
     fr: "Prix indicatifs du marché tunisien, en dinars.",
     ar: "أسعار تقريبية من السوق التونسي، بالدينار.",
   },
+  // Prix du marché
+  pricesTitle: { fr: "Prix du marché", ar: "أسعار السوق" },
+  pricesHelp: {
+    fr: "Les prix intégrés sont des ordres de grandeur. Ici, l'agent va chercher sur le web ce que valent réellement les produits en ce moment.",
+    ar: "الأسعار اللي في التطبيق تقريبية. هنا الشاف يلوّج في الويب على الأسعار الحقيقية توّا.",
+  },
+  checkPrices: { fr: "Vérifier les prix", ar: "تثبّت من الأسعار" },
+  checking: { fr: "Recherche en cours…", ar: "قاعد يلوّج…" },
+  catalogPrice: { fr: "Estimation", ar: "تقدير" },
+  webPrice: { fr: "Relevé web", ar: "من الويب" },
+  noWebPrice: { fr: "Pas de source", ar: "ما فماش مصدر" },
+  sources: { fr: "Sources consultées", ar: "المصادر" },
+  lastChecked: { fr: "Vérifié le", ar: "تثبّتنا منها في" },
+  checkListPrices: { fr: "Vérifier les prix de ma liste", ar: "تثبّت من أسعار قائمتي" },
+  confidenceHigh: { fr: "source claire", ar: "مصدر واضح" },
+  confidenceMedium: { fr: "à confirmer", ar: "يتأكّد" },
+  confidenceLow: { fr: "peu sûr", ar: "موش مضمون" },
+  priceSourceCatalogue: {
+    fr: "Estimations intégrées à l'application.",
+    ar: "تقديرات من التطبيق.",
+  },
+  priceSourceWeb: {
+    fr: "Prix relevés sur le web, chacun rattaché à sa source.",
+    ar: "أسعار من الويب، كل وحدة مع مصدرها.",
+  },
+
+  // Recette trouvée sur le web
+  discoverTitle: { fr: "Chercher une recette sur le web", ar: "لوّج على وصفة في الويب" },
+  discoverHelp: {
+    fr: "Un plat qui n'est pas dans le répertoire ? L'agent le cherche sur des sites de cuisine tunisienne et le reconstitue en étapes.",
+    ar: "ماكلة موش موجودة في القائمة ؟ الشاف يلوّج عليها في مواقع الطبخ التونسي ويرتّبها خطوة بخطوة.",
+  },
+  discoverPlaceholder: { fr: "kaak warka, bambalouni, chorba bel hout…", ar: "كعك ورقة، بمبالوني، شربة بالحوت…" },
+  discoverButton: { fr: "Chercher sur le web", ar: "لوّج في الويب" },
+  discovering: { fr: "L'agent parcourt le web…", ar: "الشاف قاعد يقلّب في الويب…" },
+  fromWeb: { fr: "Trouvée sur le web", ar: "ملقية في الويب" },
+  webRecipeWarning: {
+    fr: "Recette reconstituée à partir de sources web : vérifiez les quantités avant de vous lancer.",
+    ar: "الوصفة معمولة من مصادر ويب : ثبّت في المقادير قبل ما تبدا.",
+  },
+  sourcesUsed: { fr: "D'après ces sources", ar: "حسب هالمصادر" },
+  webContext: { fr: "Contexte web consulté", ar: "معلومات من الويب" },
+  discoverNotFound: {
+    fr: "Rien trouvé pour cette recherche. Essayez le nom tunisien du plat.",
+    ar: "ما لقينا شيء. جرّب الاسم التونسي متاع الماكلة.",
+  },
+  searchWebInstead: { fr: "Chercher ce plat sur le web", ar: "لوّج على هالماكلة في الويب" },
+  pricedFromCatalogue: {
+    fr: "des ingrédients sont chiffrés — le coût est donc partiel",
+    ar: "من المقادير عندها سوم — التكلفة ناقصة",
+  },
+
   error: { fr: "Quelque chose n'a pas fonctionné.", ar: "فمّا حاجة ما مشاتش." },
   retry: { fr: "Réessayer", ar: "عاود" },
   difficulty1: { fr: "Facile", ar: "ساهل" },
