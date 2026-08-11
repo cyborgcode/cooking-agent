@@ -45,11 +45,11 @@ choix est mémorisé et appliqué avant le premier rendu, sans clignotement.
   petits pois en septembre, et privilégie ce qui est abondant et bon marché.
 - **Commerces réels** : l'attar pour les épices et les légumes secs, la
   boucherie pour l'agneau, la grande surface pour les conserves.
-- **28 recettes** : 20 plats tunisiens du quotidien, plus 8 plats italiens
+- **30 recettes** : 20 plats tunisiens du quotidien, plus 10 plats italiens
   choisis court — lasagnes, tagliatelles au ragù, pâtes au four, gnocchi
-  maison, pizza, escalope milanaise, tagliatelles aux champignons et
-  tiramisù. Le répertoire reste tunisien ; l'italien y tient la place d'un
-  bon dimanche. — sans porc
+  maison, pizza, escalope milanaise, tagliatelles aux champignons, risotto,
+  tiramisù et panna cotta. Le répertoire reste tunisien ; l'italien y tient
+  la place d'un bon dimanche. — sans porc
   (le guanciale de la carbonara devient de la dinde fumée), sans alcool, et
   avec un remplaçant local pour les rares produits importés.
 - **20 recettes tunisiennes du quotidien**, des plus rapides aux plus longues :
