@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { useLang } from "@/components/lang-provider";
 import { Badge } from "@/components/ui";
-import { CATEGORY_LABELS, TAG_LABELS } from "@/lib/i18n";
+import { CATEGORY_LABELS, CUISINE_LABELS, TAG_LABELS } from "@/lib/i18n";
 import { formatMinutes, formatTND } from "@/lib/scale";
 import type { RecipeSummary } from "@/lib/view";
 
@@ -63,6 +63,11 @@ export function RecipeCard({
             <Badge icon={recipe.category} tone="neutral">
               {CATEGORY_LABELS[recipe.category][lang]}
             </Badge>
+            {recipe.cuisine === "italienne" && (
+              <Badge icon="italienne" tone="accent">
+                {CUISINE_LABELS.italienne[lang]}
+              </Badge>
+            )}
             {recipe.tags.slice(0, 2).map((tag) => (
               <Badge key={tag} icon={tag} tone="olive">
                 {TAG_LABELS[tag][lang]}

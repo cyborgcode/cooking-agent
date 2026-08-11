@@ -1,3 +1,4 @@
+import { RECIPES_ITALIENNES } from "@/lib/data/recipes-italiennes";
 import type { Recipe } from "@/lib/types";
 
 /**
@@ -7,7 +8,7 @@ import type { Recipe } from "@/lib/types";
  * remet à l'échelle du nombre de convives. Les identifiants d'ingrédients
  * renvoient au catalogue `lib/data/ingredients.ts`.
  */
-export const RECIPES: Recipe[] = [
+const RECIPES_TUNISIENNES: Recipe[] = [
   // ------------------------------------------------------------------ 1
   {
     slug: "kosksi-bel-allouch",
@@ -1609,6 +1610,14 @@ export const RECIPES: Recipe[] = [
     ],
   },
 ];
+
+/**
+ * Le répertoire complet.
+ *
+ * Les plats tunisiens d'abord — ils restent le fonds de l'application — puis
+ * la cuisine italienne telle qu'on la fait réellement en Tunisie.
+ */
+export const RECIPES: Recipe[] = [...RECIPES_TUNISIENNES, ...RECIPES_ITALIENNES];
 
 const BY_SLUG = new Map(RECIPES.map((r) => [r.slug, r]));
 

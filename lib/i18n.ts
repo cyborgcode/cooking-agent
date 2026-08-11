@@ -1,5 +1,6 @@
 import type {
   Bilingual,
+  Cuisine,
   IngredientCategory,
   Lang,
   RecipeCategory,
@@ -178,6 +179,7 @@ export const UI: Dict = {
 
   error: { fr: "Quelque chose n'a pas fonctionné.", ar: "فمّا حاجة ما مشاتش." },
   retry: { fr: "Réessayer", ar: "عاود" },
+  allCuisines: { fr: "Toutes les cuisines", ar: "المطابخ الكل" },
   themeToDark: { fr: "Passer au thème sombre", ar: "بدّل للثيم المظلم" },
   themeToLight: { fr: "Passer au thème clair", ar: "بدّل للثيم الفاتح" },
   difficulty1: { fr: "Facile", ar: "ساهل" },
@@ -189,6 +191,11 @@ export const UI: Dict = {
 export function t(key: keyof typeof UI, lang: Lang): string {
   return UI[key]?.[lang] ?? String(key);
 }
+
+export const CUISINE_LABELS: Record<Cuisine, Bilingual> = {
+  tunisienne: { fr: "Tunisienne", ar: "تونسية" },
+  italienne: { fr: "Italienne", ar: "إيطالية" },
+};
 
 export const CATEGORY_LABELS: Record<RecipeCategory, Bilingual> = {
   plat: { fr: "Plat", ar: "طبق رئيسي" },

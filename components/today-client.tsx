@@ -37,6 +37,7 @@ export function TodayClient({
   const [form, setForm] = useState<Omit<MealFormState, "people">>({
     budget: 30,
     maxMinutes: 60,
+    cuisine: null,
     tags: [],
     note: "",
   });

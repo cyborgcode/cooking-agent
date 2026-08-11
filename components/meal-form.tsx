@@ -5,15 +5,19 @@ import { useLang } from "@/components/lang-provider";
 import { Button } from "@/components/ui";
 import { TAG_LABELS } from "@/lib/i18n";
 import { formatMinutes, formatTND } from "@/lib/scale";
-import type { RecipeTag } from "@/lib/types";
+import { CUISINE_LABELS } from "@/lib/i18n";
+import type { Cuisine, RecipeTag } from "@/lib/types";
 
 export interface MealFormState {
   people: number;
+  cuisine: Cuisine | null;
   budget: number | null;
   maxMinutes: number;
   tags: RecipeTag[];
   note: string;
 }
+
+const CUISINE_CHOICES: (Cuisine | null)[] = [null, "tunisienne", "italienne"];
 
 const TIME_CHOICES = [20, 30, 45, 60, 90, 180];
 const BUDGET_CHOICES: (number | null)[] = [10, 20, 30, 50, null];
@@ -158,6 +162,21 @@ export function MealForm({
               onClick={() => set("maxMinutes", minutes)}
             >
               {formatMinutes(minutes, lang)}
+            </Chip>
+          ))}
+        </div>
+      </Field>
+
+      <Field icon="recipes" label={t("allCuisines")}>
+        <div className="flex flex-wrap gap-2">
+          {CUISINE_CHOICES.map((cuisine) => (
+            <Chip
+              key={cuisine ?? "toutes"}
+              icon={cuisine ?? undefined}
+              active={value.cuisine === cuisine}
+              onClick={() => set("cuisine", cuisine)}
+            >
+              {cuisine ? CUISINE_LABELS[cuisine][lang] : t("allCuisines")}
             </Chip>
           ))}
         </div>

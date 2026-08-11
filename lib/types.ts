@@ -119,6 +119,15 @@ export type RecipeCategory =
   | "petit_dejeuner"
   | "dessert";
 
+/**
+ * Tradition culinaire du plat.
+ *
+ * La cuisine italienne fait partie du quotidien tunisien depuis les
+ * communautés siciliennes : les pâtes sont un produit de base et l'essentiel
+ * des recettes se fait avec les produits du marché local.
+ */
+export type Cuisine = "tunisienne" | "italienne";
+
 export type RecipeTag =
   | "rapide"
   | "economique"
@@ -135,6 +144,8 @@ export interface Recipe {
   name: Bilingual;
   description: Bilingual;
   region?: Bilingual;
+  /** Absent = tunisienne, qui reste le fonds du répertoire. */
+  cuisine?: Cuisine;
   category: RecipeCategory;
   /** Nombre de personnes pour lequel les quantités sont exprimées. */
   serves: number;
@@ -165,6 +176,8 @@ export interface MealRequest {
   pantry: string[];
   /** Filtres de régime / occasion. */
   tags: RecipeTag[];
+  /** Tradition souhaitée ce soir. Null = peu importe. */
+  cuisine?: Cuisine | null;
   /** Recettes déjà cuisinées récemment, à éviter. */
   exclude?: string[];
   /** Demande libre de l'utilisateur ("quelque chose de léger", "j'ai des courgettes"…). */

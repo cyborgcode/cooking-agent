@@ -6,6 +6,7 @@ import type {
   IngredientCategory,
   MealRequest,
   Recipe,
+  Cuisine,
   RecipeCategory,
   RecipeTag,
   ShopId,
@@ -23,6 +24,7 @@ export interface RecipeSummary {
   name: Bilingual;
   description: Bilingual;
   region?: Bilingual;
+  cuisine: Cuisine;
   category: RecipeCategory;
   serves: number;
   totalMinutes: number;
@@ -40,6 +42,7 @@ export function toSummary(recipe: Recipe, people = recipe.serves): RecipeSummary
     name: recipe.name,
     description: recipe.description,
     region: recipe.region,
+    cuisine: recipe.cuisine ?? "tunisienne",
     category: recipe.category,
     serves: people,
     totalMinutes: recipe.prepMinutes + recipe.cookMinutes,
@@ -158,6 +161,8 @@ const VALID_TAGS: RecipeTag[] = [
   "batch",
 ];
 
+const VALID_CUISINES: Cuisine[] = ["tunisienne", "italienne"];
+
 const KNOWN_INGREDIENTS = new Set(INGREDIENTS.map((i) => i.id));
 
 function clamp(value: number, min: number, max: number, fallback: number): number {
@@ -200,6 +205,9 @@ export function parseMealRequest(body: unknown): MealRequest {
     month: clamp(Number(raw.month), 1, 12, new Date().getMonth() + 1),
     pantry,
     tags,
+    cuisine: VALID_CUISINES.includes(raw.cuisine as Cuisine)
+      ? (raw.cuisine as Cuisine)
+      : null,
     exclude,
     note: note || undefined,
   };

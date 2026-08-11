@@ -48,6 +48,7 @@ import {
   Newspaper,
   Nut,
   PartyPopper,
+  Pizza,
   Pause,
   Play,
   Plus,
@@ -152,6 +153,10 @@ export const ICONS = {
   summer: Sun,
   autumn: Leaf,
   winter: Snowflake,
+
+  // Cuisines
+  tunisienne: HandPlatter,
+  italienne: Pizza,
 
   // Thème
   themeLight: Sun,

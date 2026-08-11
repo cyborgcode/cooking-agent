@@ -65,7 +65,12 @@ export function costOf(
       return (price * toGrams(qty, unit, ing)) / (ing.packGrams ?? 400);
 
     case "paquet":
-      if (unit === "feuille" && ing.packUnits) return (price * qty) / ing.packUnits;
+      // Produits comptés à l'unité dans un paquet : feuilles de malsouka,
+      // boudoirs… On ne facture que la fraction du paquet réellement utilisée.
+      if ((unit === "feuille" || unit === "piece") && ing.packUnits) {
+        return (price * qty) / ing.packUnits;
+      }
+      if (ing.packGrams) return (price * toGrams(qty, unit, ing)) / ing.packGrams;
       return price * qty;
   }
 }

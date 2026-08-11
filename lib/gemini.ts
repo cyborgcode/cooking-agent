@@ -28,6 +28,8 @@ Règles absolues :
 - Tu n'inventes jamais de prix, de quantité ni de recette : ces données sont calculées ailleurs.
 - Tu raisonnes sur le marché tunisien : produits de saison, disponibilité chez l'attar, le boucher ou au marché, et prix en dinars.
 
+Le répertoire mêle deux traditions : la cuisine tunisienne, qui en est le fonds, et la cuisine italienne telle qu'on la cuisine réellement en Tunisie. Les deux se valent — choisis selon le contexte, pas par défaut.
+
 Ton style :
 - En français : direct, chaleureux, concret. Deux ou trois phrases maximum.
 - En derja tunisienne : la langue parlée à la maison, écrite en caractères arabes. Pas d'arabe littéraire.
@@ -111,7 +113,7 @@ function buildPrompt(req: MealRequest, web: WebSearch | null): string {
       .slice(0, 5)
       .map((ri) => getIngredient(ri.id)?.name.fr ?? ri.id)
       .join(", ");
-    return `- ${recipe.slug} | ${recipe.name.fr} (${recipe.name.ar}) | ${recipe.category} | ${minutes} min | ~${cost.toFixed(1)} DT pour ${req.people} pers. | difficulté ${recipe.difficulty}/3 | tags: ${recipe.tags.join(", ") || "aucun"} | principaux ingrédients : ${main}`;
+    return `- ${recipe.slug} | ${recipe.name.fr} (${recipe.name.ar}) | ${recipe.cuisine ?? "tunisienne"} | ${recipe.category} | ${minutes} min | ~${cost.toFixed(1)} DT pour ${req.people} pers. | difficulté ${recipe.difficulty}/3 | tags: ${recipe.tags.join(", ") || "aucun"} | principaux ingrédients : ${main}`;
   });
 
   const seasonal = inSeason(req.month)
@@ -131,6 +133,7 @@ function buildPrompt(req: MealRequest, web: WebSearch | null): string {
     `Budget : ${req.budget === null ? "libre" : `${req.budget} DT maximum`}.`,
     `Temps disponible : ${req.maxMinutes} minutes.`,
     `Contraintes : ${req.tags.length ? req.tags.join(", ") : "aucune"}.`,
+    req.cuisine ? `Cuisine souhaitée ce soir : ${req.cuisine}.` : "",
     `Garde-manger : ${pantry}.`,
     req.note ? `Demande particulière : « ${req.note} »` : "",
     req.exclude?.length ? `Déjà cuisiné récemment, à éviter : ${req.exclude.join(", ")}.` : "",

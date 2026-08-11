@@ -6,9 +6,11 @@ import { Icon } from "@/components/icons";
 import { useLang } from "@/components/lang-provider";
 import { RecipeCard } from "@/components/recipe-card";
 import { Button, EmptyState } from "@/components/ui";
-import { CATEGORY_LABELS, TAG_LABELS } from "@/lib/i18n";
-import type { RecipeCategory, RecipeTag } from "@/lib/types";
+import { CATEGORY_LABELS, CUISINE_LABELS, TAG_LABELS } from "@/lib/i18n";
+import type { Cuisine, RecipeCategory, RecipeTag } from "@/lib/types";
 import type { RecipeSummary } from "@/lib/view";
+
+const CUISINES: (Cuisine | null)[] = [null, "tunisienne", "italienne"];
 
 const CATEGORIES: RecipeCategory[] = [
   "plat",
@@ -39,12 +41,14 @@ function normalize(text: string): string {
 export function RecipesBrowser({ recipes }: { recipes: RecipeSummary[] }) {
   const { t, lang } = useLang();
   const [query, setQuery] = useState("");
+  const [cuisine, setCuisine] = useState<Cuisine | null>(null);
   const [category, setCategory] = useState<RecipeCategory | null>(null);
   const [tag, setTag] = useState<RecipeTag | null>(null);
 
   const filtered = useMemo(() => {
     const needle = normalize(query.trim());
     return recipes.filter((recipe) => {
+      if (cuisine && recipe.cuisine !== cuisine) return false;
       if (category && recipe.category !== category) return false;
       if (tag && !recipe.tags.includes(tag)) return false;
       if (!needle) return true;
@@ -55,7 +59,7 @@ export function RecipesBrowser({ recipes }: { recipes: RecipeSummary[] }) {
         normalize(recipe.description.fr).includes(needle)
       );
     });
-  }, [recipes, query, category, tag]);
+  }, [recipes, query, cuisine, category, tag]);
 
   return (
     <div className="space-y-4">
@@ -69,6 +73,24 @@ export function RecipesBrowser({ recipes }: { recipes: RecipeSummary[] }) {
           placeholder={t("searchRecipe")}
           className="w-full rounded-xl border bg-surface py-3 ps-10 pe-3 text-sm placeholder:text-muted/70"
         />
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {CUISINES.map((item) => (
+          <button
+            key={item ?? "toutes"}
+            onClick={() => setCuisine(item)}
+            aria-pressed={cuisine === item}
+            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+              cuisine === item
+                ? "border-accent bg-accent text-white"
+                : "bg-surface text-muted hover:text-ink"
+            }`}
+          >
+            {item && <Icon name={item} size={13} />}
+            {item ? CUISINE_LABELS[item][lang] : t("allCuisines")}
+          </button>
+        ))}
       </div>
 
       <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1">

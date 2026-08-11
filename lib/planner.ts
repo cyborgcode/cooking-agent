@@ -108,7 +108,12 @@ function scoreRecipe(recipe: Recipe, req: MealRequest, seed: string): ScoredReci
 /** Classe toutes les recettes compatibles, la meilleure en tête. */
 export function rankRecipes(req: MealRequest, seed = ""): ScoredRecipe[] {
   const excluded = new Set(req.exclude ?? []);
+  // Une cuisine demandée explicitement est un filtre, pas une préférence :
+  // qui réclame de l'italien ce soir ne veut pas d'un couscous mieux noté.
+  const wanted = req.cuisine ?? null;
+
   return RECIPES.filter((r) => !excluded.has(r.slug))
+    .filter((r) => !wanted || (r.cuisine ?? "tunisienne") === wanted)
     .map((r) => scoreRecipe(r, req, seed))
     .sort((a, b) => b.score - a.score);
 }
@@ -231,7 +236,11 @@ export function planWeek(req: MealRequest, seed = ""): string[] {
   const used = new Set(req.exclude ?? []);
 
   for (let day = 0; day < 7; day++) {
-    const ranked = rankRecipes({ ...req, exclude: [...used] }, `${seed}-${day}`);
+    const ranked = rankRecipes({ ...req, exclude: [...used] }, `${seed}-${day}`)
+      // Un menu de la semaine propose des repas complets : une salade, une
+      // entrée ou un dessert ne font pas un dîner à eux seuls.
+      .filter(({ recipe }) => recipe.category === "plat" || recipe.category === "soupe");
+
     if (ranked.length === 0) break;
     const pick = ranked[0].recipe;
     chosen.push(pick.slug);
