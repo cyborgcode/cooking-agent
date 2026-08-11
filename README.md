@@ -148,6 +148,40 @@ métier (`market`, `harissa`, `ramadan`, `timer`…) à un composant lucide.
 Pour changer un pictogramme, on modifie une ligne de ce registre — et rien
 d'autre dans l'application.
 
+## Photos des recettes
+
+Les recettes peuvent être illustrées, mais **aucune photo n'est incluse par
+défaut** : le manifeste `lib/data/recipe-images.json` est livré vide et
+chaque plat affiche son pictogramme.
+
+Pour les chercher :
+
+```bash
+TAVILY_API_KEY=... node scripts/fetch-recipe-images.mjs
+```
+
+Le script écrit le manifeste ; l'application se contente de le lire. Aucune
+recherche n'a donc lieu pendant le rendu d'une page — le visuel d'un plat ne
+change pas d'une visite à l'autre et le quota n'est pas consommé par le
+trafic.
+
+### Pourquoi la recherche est restreinte
+
+La quasi-totalité des photos de cuisine du web sont protégées par le droit
+d'auteur : les afficher dans une application publique serait une
+contrefaçon. La recherche est donc limitée à **Wikimedia Commons**, dont les
+licences autorisent la réutilisation, et l'application affiche le crédit que
+ces licences exigent. Les images provenant d'un autre hôte, ou qui ne sont
+pas au format JPEG/PNG/WebP, sont écartées — à la génération comme à
+l'affichage, et `next.config.ts` n'autorise que `upload.wikimedia.org`.
+
+Une recherche automatique peut se tromper de plat : **relisez le manifeste
+avant de le committer**. Il est fait pour être corrigé à la main, et le
+script ne réécrit pas une entrée existante sans `--force`.
+
+Les recettes trouvées sur le web (`/recettes/decouvrir`) restent sans photo :
+rien ne permet d'y vérifier une licence.
+
 ## Déploiement sur Vercel
 
 Le projet est un Next.js standard : Vercel le détecte seul, aucune

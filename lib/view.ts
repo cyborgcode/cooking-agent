@@ -1,6 +1,7 @@
 import { INGREDIENTS, getIngredient } from "@/lib/data/ingredients";
 import { RECIPES, getRecipe } from "@/lib/data/recipes";
 import { recipeCost } from "@/lib/pricing";
+import { getRecipeImage, type RecipeImage } from "@/lib/recipe-images";
 import type {
   Bilingual,
   IngredientCategory,
@@ -34,6 +35,8 @@ export interface RecipeSummary {
   stepCount: number;
   /** Coût estimé pour le nombre de convives demandé, en dinars. */
   cost: number;
+  /** Photo libre de droits, ou null : la carte affiche alors son pictogramme. */
+  image: RecipeImage | null;
 }
 
 export function toSummary(recipe: Recipe, people = recipe.serves): RecipeSummary {
@@ -51,6 +54,7 @@ export function toSummary(recipe: Recipe, people = recipe.serves): RecipeSummary
     months: recipe.months,
     stepCount: recipe.steps.length,
     cost: recipeCost(recipe, people),
+    image: getRecipeImage(recipe.slug),
   };
 }
 
@@ -96,6 +100,7 @@ export interface CookingPayload {
   steps: Step[];
   utensils: Bilingual[];
   tips: Bilingual[];
+  image: RecipeImage | null;
 }
 
 export function toCookingPayload(recipe: Recipe): CookingPayload {
@@ -126,6 +131,7 @@ export function toCookingPayload(recipe: Recipe): CookingPayload {
     steps: recipe.steps,
     utensils: recipe.utensils,
     tips: recipe.tips ?? [],
+    image: getRecipeImage(recipe.slug),
   };
 }
 

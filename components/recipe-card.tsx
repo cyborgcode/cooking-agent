@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Icon } from "@/components/icons";
+import { RecipeImage } from "@/components/recipe-image";
 import { useLang } from "@/components/lang-provider";
 import { Badge } from "@/components/ui";
 import { CATEGORY_LABELS, CUISINE_LABELS, TAG_LABELS } from "@/lib/i18n";
@@ -27,9 +28,13 @@ export function RecipeCard({
       href={`/recettes/${recipe.slug}`}
       className="card flex gap-3 p-3.5 transition hover:border-primary"
     >
-      <span className="grid size-11 shrink-0 place-items-center self-start rounded-xl bg-primary-soft text-primary">
-        <Icon name={recipe.category} size={21} />
-      </span>
+      <RecipeImage
+        image={recipe.image}
+        fallbackIcon={recipe.category}
+        alt={s(recipe.name)}
+        className="size-16 shrink-0 self-start rounded-xl"
+        sizes="64px"
+      />
 
       <span className="min-w-0 flex-1">
         <span className="flex items-baseline justify-between gap-2">

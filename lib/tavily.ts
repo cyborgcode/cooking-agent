@@ -45,9 +45,17 @@ export interface WebResult {
   publishedDate?: string;
 }
 
+/** Image rapportée par la recherche. */
+export interface WebImage {
+  url: string;
+  description?: string;
+}
+
 export interface WebSearch {
   query: string;
   results: WebResult[];
+  /** Images trouvées, si `includeImages` a été demandé. */
+  images: WebImage[];
   /** Réponse synthétique, si `includeAnswer` a été demandé. */
   answer?: string;
   /** Date de la recherche, au format ISO. */
@@ -59,6 +67,10 @@ export interface SearchOptions {
   searchDepth?: "basic" | "advanced";
   topic?: "general" | "news";
   includeAnswer?: boolean;
+  /** Demander les images des pages trouvées. */
+  includeImages?: boolean;
+  /** Demander une légende pour chaque image (coûte un aller-retour de plus). */
+  includeImageDescriptions?: boolean;
   includeDomains?: string[];
   excludeDomains?: string[];
   /** Fenêtre temporelle : "day", "week", "month", "year". */
@@ -77,8 +89,12 @@ interface TavilyApiResult {
   published_date?: string;
 }
 
+/** L'API renvoie soit une simple URL, soit un objet légendé. */
+type TavilyApiImage = string | { url?: string; description?: string };
+
 interface TavilyApiResponse {
   results?: TavilyApiResult[];
+  images?: TavilyApiImage[];
   answer?: string;
 }
 
@@ -93,7 +109,16 @@ const cache = new Map<string, CacheEntry>();
 const DEFAULT_TTL_MS = 60 * 60 * 1000; // une heure
 
 function cacheKey(query: string, options: SearchOptions): string {
-  return JSON.stringify([query, options.maxResults, options.topic, options.searchDepth, options.includeDomains, options.timeRange, options.country]);
+  return JSON.stringify([
+    query,
+    options.maxResults,
+    options.topic,
+    options.searchDepth,
+    options.includeDomains,
+    options.timeRange,
+    options.country,
+    options.includeImages,
+  ]);
 }
 
 /** Vrai si une clé Tavily est configurée côté serveur. */
@@ -130,6 +155,8 @@ export async function tavilySearch(
         topic: options.topic ?? "general",
         include_answer: options.includeAnswer ?? false,
         include_raw_content: false,
+        include_images: options.includeImages ?? false,
+        include_image_descriptions: options.includeImageDescriptions ?? false,
         ...(options.includeDomains?.length && { include_domains: options.includeDomains }),
         ...(options.excludeDomains?.length && { exclude_domains: options.excludeDomains }),
         ...(options.timeRange && { time_range: options.timeRange }),
@@ -149,6 +176,13 @@ export async function tavilySearch(
       query,
       answer: payload.answer,
       fetchedAt: new Date().toISOString(),
+      images: (payload.images ?? [])
+        .map((image) =>
+          typeof image === "string"
+            ? { url: image }
+            : { url: image.url ?? "", description: image.description },
+        )
+        .filter((image) => image.url.startsWith("https://")),
       results: (payload.results ?? [])
         .filter((r): r is TavilyApiResult & { url: string } => Boolean(r.url))
         .map((r) => ({

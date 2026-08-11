@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { useLang } from "@/components/lang-provider";
 import { difficultyKey } from "@/components/recipe-card";
+import { RecipeHero } from "@/components/recipe-image";
 import { StepTimer } from "@/components/step-timer";
 import { STORAGE_KEYS, useLocalState } from "@/components/use-local-state";
 import { Badge, Button, Notice, SectionTitle, Stat } from "@/components/ui";
@@ -200,6 +201,9 @@ export function CookingMode({
 
       <section className="card overflow-hidden">
         <div className="zellige h-1" />
+
+        <RecipeHero image={recipe.image} alt={s(recipe.name)} />
+
         <div className="space-y-4 p-4">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">

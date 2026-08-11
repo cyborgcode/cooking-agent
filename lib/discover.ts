@@ -342,6 +342,10 @@ export async function discoverRecipe(query: string): Promise<DiscoverOutcome> {
         })),
       utensils: (parsed.utensils ?? []).filter((u) => u.fr).map((u) => ({ fr: u.fr, ar: u.ar || u.fr })),
       tips: [],
+      // Pas d'image pour une recette trouvée sur le web : les photos des
+      // sites de cuisine sont protégées, et rien ne permet ici de vérifier
+      // leur licence. La fiche affiche donc son pictogramme.
+      image: null,
     };
 
     return {
