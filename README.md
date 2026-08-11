@@ -139,6 +139,37 @@ métier (`market`, `harissa`, `ramadan`, `timer`…) à un composant lucide.
 Pour changer un pictogramme, on modifie une ligne de ce registre — et rien
 d'autre dans l'application.
 
+## Déploiement sur Vercel
+
+Le projet est un Next.js standard : Vercel le détecte seul, aucune
+configuration ni `vercel.json` n'est nécessaire.
+
+1. Sur [vercel.com/new](https://vercel.com/new), importer le dépôt
+   `cyborgcode/cooking-agent`.
+2. Laisser les réglages par défaut (framework Next.js, `npm install`,
+   `next build`). La seule branche du dépôt est
+   `claude/tunisian-cooking-agent-9lrn95` : elle sert donc de branche de
+   production.
+3. Déployer.
+
+L'application se construit et fonctionne **sans aucune variable
+d'environnement** : elle démarre sur le planificateur local et le catalogue
+de prix intégré. Pour activer le modèle et la recherche web, ajouter ensuite
+dans *Settings → Environment Variables* :
+
+| Variable | Effet si absente |
+|---|---|
+| `GEMINI_API_KEY` | Le plat du jour vient du planificateur local ; pas de recette reconstituée depuis le web. |
+| `TAVILY_API_KEY` | Pas de prix relevés sur le web ni de recherche de recette ; le reste est intact. |
+| `GEMINI_MODEL` | `gemini-2.5-flash`. |
+| `TAVILY_API_URL` | `https://api.tavily.com/search`. |
+
+L'hôte `api.tavily.com` doit être joignable depuis les fonctions Vercel, ce
+qui est le cas par défaut.
+
+Une fois le dépôt lié, chaque `git push` redéploie automatiquement, et
+chaque pull request obtient sa propre URL de prévisualisation.
+
 ## Vérifications
 
 ```bash
