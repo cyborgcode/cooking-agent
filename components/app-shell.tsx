@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon, type IconName } from "@/components/icons";
 import { useLang } from "@/components/lang-provider";
+import { ThemeToggle } from "@/components/theme";
 import { STORAGE_KEYS, useLocalState } from "@/components/use-local-state";
 import type { UI } from "@/lib/i18n";
 
@@ -56,14 +57,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </span>
           </Link>
 
-          <button
-            onClick={toggle}
-            className="flex items-center gap-1.5 rounded-xl border px-3 py-2 text-xs font-bold text-muted transition hover:bg-surface-2 hover:text-ink"
-            aria-label={lang === "fr" ? "التبديل إلى العربية" : "Passer au français"}
-          >
-            <Icon name="lang" size={15} />
-            {lang === "fr" ? "عربي" : "FR"}
-          </button>
+          <div className="flex shrink-0 items-center gap-1.5">
+            <ThemeToggle />
+            <button
+              onClick={toggle}
+              className="flex items-center gap-1.5 rounded-xl border px-3 py-2 text-xs font-bold text-muted transition hover:bg-surface-2 hover:text-ink"
+              aria-label={lang === "fr" ? "التبديل إلى العربية" : "Passer au français"}
+            >
+              <Icon name="lang" size={15} />
+              {lang === "fr" ? "عربي" : "FR"}
+            </button>
+          </div>
         </div>
       </header>
 

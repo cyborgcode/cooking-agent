@@ -9,6 +9,11 @@ Interface bilingue **français / arabe tunisien (derja)**, avec bascule
 droite-à-gauche complète. Aucun emoji dans l'interface : toutes les icônes
 sont des pictogrammes vectoriels (lucide).
 
+Thème clair ou sombre : par défaut l'application suit le réglage du système —
+le bon comportement pour une application qu'on ouvre le soir dans une
+cuisine — et le bouton de l'en-tête permet de forcer l'un ou l'autre. Le
+choix est mémorisé et appliqué avant le premier rendu, sans clignotement.
+
 ## Ce que fait l'agent
 
 - **Le plat du jour** — vous indiquez le nombre de convives, le budget, le

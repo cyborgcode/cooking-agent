@@ -153,6 +153,10 @@ export const ICONS = {
   autumn: Leaf,
   winter: Snowflake,
 
+  // Thème
+  themeLight: Sun,
+  themeDark: Moon,
+
   // Recherche web et prix
   web: Globe,
   price: Tag,

@@ -178,6 +178,8 @@ export const UI: Dict = {
 
   error: { fr: "Quelque chose n'a pas fonctionné.", ar: "فمّا حاجة ما مشاتش." },
   retry: { fr: "Réessayer", ar: "عاود" },
+  themeToDark: { fr: "Passer au thème sombre", ar: "بدّل للثيم المظلم" },
+  themeToLight: { fr: "Passer au thème clair", ar: "بدّل للثيم الفاتح" },
   difficulty1: { fr: "Facile", ar: "ساهل" },
   difficulty2: { fr: "Moyen", ar: "متوسّط" },
   difficulty3: { fr: "Technique", ar: "يحب خبرة" },

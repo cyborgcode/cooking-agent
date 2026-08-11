@@ -3,42 +3,78 @@
 /*
  * Palette inspirée des couleurs tunisiennes : le rouge de la harissa, le
  * vert de l'olivier, le bleu de Sidi Bou Saïd et le sable des murs chaulés.
+ *
+ * Chaque teinte est déclarée une seule fois, avec sa variante claire puis sa
+ * variante sombre : `light-dark()` choisit selon `color-scheme`. Basculer de
+ * thème ne demande donc que de redéfinir `color-scheme`, plus bas — il n'y a
+ * pas deux palettes à tenir à jour en parallèle.
  */
 :root {
-  --background: #fbf7f1;
-  --surface: #ffffff;
-  --surface-2: #f5eee4;
-  --border: #e6dbcb;
-  --ink: #2a2018;
-  --muted: #7a6a58;
-  --primary: #bd4227;
-  --primary-soft: #fbe9e3;
-  --primary-ink: #ffffff;
-  --accent: #2a6ba8;
-  --accent-soft: #e6eff8;
-  --olive: #6b7d4b;
-  --olive-soft: #edf1e3;
-  --gold: #b8860b;
-  --shadow: 0 1px 2px rgb(42 32 24 / 0.06), 0 8px 24px -12px rgb(42 32 24 / 0.18);
+  /* « light dark » = on suit le réglage du système, sauf indication contraire. */
+  color-scheme: light dark;
+
+  --background: light-dark(#fbf7f1, #16110d);
+  --surface: light-dark(#ffffff, #201913);
+  --surface-2: light-dark(#f5eee4, #2a211a);
+  --border: light-dark(#e6dbcb, #3b2e24);
+  --ink: light-dark(#2a2018, #f3ebe0);
+  --muted: light-dark(#7a6a58, #a89583);
+  --primary: light-dark(#bd4227, #e4693f);
+  --primary-soft: light-dark(#fbe9e3, #38201a);
+  --primary-ink: light-dark(#ffffff, #1a120d);
+  --accent: light-dark(#2a6ba8, #6ba4dc);
+  --accent-soft: light-dark(#e6eff8, #17242f);
+  --olive: light-dark(#6b7d4b, #a3b673);
+  --olive-soft: light-dark(#edf1e3, #1e2418);
+  --gold: light-dark(#b8860b, #d9a441);
+
+  /* Une ombre n'est pas une couleur : seules ses teintes le sont. */
+  --shadow-near: light-dark(rgb(42 32 24 / 0.06), rgb(0 0 0 / 0.4));
+  --shadow-far: light-dark(rgb(42 32 24 / 0.18), rgb(0 0 0 / 0.6));
+  --shadow: 0 1px 2px var(--shadow-near), 0 8px 24px -12px var(--shadow-far);
 }
 
-@media (prefers-color-scheme: dark) {
+/*
+ * Choix explicite de l'utilisateur. L'attribut est posé sur <html> avant le
+ * premier rendu (voir le script dans `app/layout.tsx`), ce qui évite de voir
+ * apparaître le mauvais thème le temps que React s'hydrate.
+ */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/*
+ * Navigateurs sans `light-dark()` (avant Chrome 123 / Safari 17.5).
+ *
+ * L'astuce habituelle — déclarer une valeur de repli juste avant — ne
+ * fonctionne pas ici : une propriété personnalisée accepte n'importe quels
+ * jetons à l'analyse, donc la déclaration `light-dark()` l'emporterait
+ * toujours et échouerait ensuite à la substitution, laissant l'interface
+ * sans couleurs. On redéfinit donc explicitement la palette claire, qui
+ * reste parfaitement lisible.
+ */
+@supports not (color: light-dark(#000, #fff)) {
   :root {
-    --background: #16110d;
-    --surface: #201913;
-    --surface-2: #2a211a;
-    --border: #3b2e24;
-    --ink: #f3ebe0;
-    --muted: #a89583;
-    --primary: #e4693f;
-    --primary-soft: #38201a;
-    --primary-ink: #1a120d;
-    --accent: #6ba4dc;
-    --accent-soft: #17242f;
-    --olive: #a3b673;
-    --olive-soft: #1e2418;
-    --gold: #d9a441;
-    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+    --background: #fbf7f1;
+    --surface: #ffffff;
+    --surface-2: #f5eee4;
+    --border: #e6dbcb;
+    --ink: #2a2018;
+    --muted: #7a6a58;
+    --primary: #bd4227;
+    --primary-soft: #fbe9e3;
+    --primary-ink: #ffffff;
+    --accent: #2a6ba8;
+    --accent-soft: #e6eff8;
+    --olive: #6b7d4b;
+    --olive-soft: #edf1e3;
+    --gold: #b8860b;
+    --shadow-near: rgb(42 32 24 / 0.06);
+    --shadow-far: rgb(42 32 24 / 0.18);
   }
 }
 

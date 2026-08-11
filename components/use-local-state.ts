@@ -125,6 +125,7 @@ export function useLocalState<T>(
 /** Clés de stockage, regroupées pour éviter les collisions. */
 export const STORAGE_KEYS = {
   lang: "chef.lang",
+  theme: "chef.theme",
   pantry: "chef.pantry",
   meals: "chef.meals",
   people: "chef.people",

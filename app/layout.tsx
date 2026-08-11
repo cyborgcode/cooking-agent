@@ -26,11 +26,27 @@ export const viewport: Viewport = {
   ],
 };
 
+/**
+ * Applique le thème mémorisé avant le premier rendu.
+ *
+ * Sans cela, la page s'afficherait d'abord selon le réglage du système, puis
+ * basculerait une fois React hydraté : un clignotement bien visible. Le
+ * script est volontairement minuscule et tolérant — si le stockage est
+ * inaccessible, on retombe simplement sur la préférence système.
+ */
+const THEME_SCRIPT = `try{var t=JSON.parse(localStorage.getItem("chef.theme")||"null");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" dir="ltr" className={cairo.variable}>
+    // `suppressHydrationWarning` : le script ci-dessus pose `data-theme` sur
+    // <html> avant l'hydratation, ce que React signalerait sinon comme un
+    // écart avec le rendu serveur.
+    <html lang="fr" dir="ltr" className={cairo.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="antialiased">
         <LangProvider>
           <AppShell>{children}</AppShell>
