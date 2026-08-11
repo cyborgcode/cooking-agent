@@ -916,4 +916,748 @@ export const RECIPES_ITALIENNES: Recipe[] = [
       },
     ],
   },
+
+  // ------------------------------------------------------------------ 11
+  {
+    slug: "lasagne-bolognaise",
+    name: { fr: "Lasagnes à la bolognaise", ar: "لازانيا بولونيز" },
+    description: {
+      fr: "Un ragù de bœuf mijoté deux heures, une béchamel muscadée, six couches de pâtes et beaucoup de fromage. C'est long, et c'est exactement pour ça que c'est bon.",
+      ar: "راڨو باللحم البڨري يطيب ساعتين، بشاميل بجوزة الطيب، ستة طبقات وبرشة جبن. تاخذ وقت، وعلى هالخاطر تجي طيبة.",
+    },
+    region: { fr: "Bologne", ar: "بولونيا" },
+    cuisine: "italienne",
+    category: "plat",
+    serves: 6,
+    prepMinutes: 40,
+    cookMinutes: 150,
+    difficulty: 3,
+    months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    tags: ["invites", "enfants", "batch"],
+    ingredients: [
+      { id: "lasagne", qty: 400, unit: "g" },
+      { id: "viande_hachee", qty: 700, unit: "g", note: { fr: "bœuf", ar: "لحم بڨري" } },
+      { id: "oignon", qty: 1, unit: "piece" },
+      { id: "carotte", qty: 2, unit: "piece" },
+      { id: "celeri", qty: 1, unit: "botte" },
+      { id: "concentre_tomate", qty: 2, unit: "cas" },
+      { id: "tomate_pelee", qty: 2, unit: "boite" },
+      { id: "lait", qty: 900, unit: "ml", note: { fr: "dont 150 ml pour le ragù", ar: "منهم 150 مل للراڨو" } },
+      { id: "beurre", qty: 80, unit: "g" },
+      { id: "farine", qty: 80, unit: "g" },
+      { id: "muscade", qty: 1, unit: "pincee" },
+      { id: "parmesan", qty: 120, unit: "g" },
+      { id: "mozzarella", qty: 200, unit: "g" },
+      { id: "huile_olive", qty: 4, unit: "cas" },
+      { id: "laurier", qty: 2, unit: "feuille" },
+      { id: "sel", qty: 2, unit: "cac" },
+    ],
+    steps: [
+      {
+        text: {
+          fr: "Hacher très finement l'oignon, les carottes et le céleri, puis les faire fondre doucement dans l'huile d'olive sans les colorer.",
+          ar: "افرم البصل، السفنارية والكرافس مليح، وخلّيهم يذوبو بالشوية في زيت الزيتون بلا ما يحمّرو.",
+        },
+        minutes: 12,
+        tip: {
+          fr: "Ce trio fondu — le soffritto — est la base du ragù. Dix minutes de patience ici valent une heure de cuisson en plus ensuite.",
+          ar: "هالثلاثي المذوّب هو أساس الراڨو. عشر دقائق صبر هنا تعوّض ساعة طياب زايدة من بعد.",
+        },
+      },
+      {
+        text: {
+          fr: "Monter le feu, ajouter la viande hachée et l'écraser à la cuillère pour qu'elle ne forme pas de boulettes. La laisser perdre son eau puis colorer.",
+          ar: "كبّر النار، زيد اللحم المفروم واهرسو بالمغرفة باش ما يعملش كور. خلّيه ينشف ماءه ويحمّر.",
+        },
+        minutes: 12,
+      },
+      {
+        text: {
+          fr: "Verser 150 ml de lait et laisser l'absorber complètement : c'est lui qui attendrit la viande.",
+          ar: "زيد 150 مل حليب وخلّي اللحم يشربو بالكامل : هو اللي يليّن اللحم.",
+        },
+        minutes: 10,
+        tip: {
+          fr: "Le lait dans le ragù n'est pas une fantaisie : c'est dans la recette d'origine, et il arrondit l'acidité de la tomate.",
+          ar: "الحليب في الراڨو موش زيادة : موجود في الوصفة الأصلية، ويكسّر حموضة الطماطم.",
+        },
+      },
+      {
+        text: {
+          fr: "Ajouter le concentré, les tomates pelées écrasées, le laurier et le sel. Couvrir à demi et laisser mijoter à tout petit feu.",
+          ar: "زيد الطماطم المصبرة، الطماطم المقشّرة المهروسة، ورق الرند والملح. غطّي نص غطاء وخلّيها تطيب على نار صغيرة.",
+        },
+        minutes: 120,
+        tip: {
+          fr: "Deux heures minimum, à peine frémissant. Un ragù pressé reste une sauce bolognaise ratée.",
+          ar: "ساعتين على الأقل، تغلي بالكاد. الراڨو المستعجل يبقى صلصة فاشلة.",
+        },
+      },
+      {
+        text: {
+          fr: "Préparer la béchamel : fondre le beurre, ajouter la farine et cuire 2 minutes, puis verser 750 ml de lait chaud en fouettant sans arrêt.",
+          ar: "حضّر البشاميل : ذوّب الزبدة، زيد الفارينة وطيّب دقيقتين، بعد صبّ 750 مل حليب سخون وأنت تخفق بلا توقّف.",
+        },
+        minutes: 10,
+        tip: {
+          fr: "Lait chaud sur roux chaud, et le fouet ne s'arrête jamais : c'est ce qui évite les grumeaux, pas la chance.",
+          ar: "حليب سخون على الروّ السخون، والخفّاقة ما تتوقّفش : هكّا ما تجيش كتل.",
+        },
+      },
+      {
+        text: {
+          fr: "Saler la béchamel et la parfumer d'une pincée de muscade râpée.",
+          ar: "ملّح البشاميل وعطّرها برشّة جوزة الطيب مبشورة.",
+        },
+        minutes: 2,
+      },
+      {
+        text: {
+          fr: "Monter dans le plat : une louche de ragù, des feuilles de lasagne, du ragù, de la béchamel, du parmesan. Répéter six fois.",
+          ar: "ركّب في الصحن : مغرفة راڨو، أوراق لازانيا، راڨو، بشاميل، بارميزان. عاود ستّ مرّات.",
+        },
+        minutes: 12,
+        tip: {
+          fr: "Toujours une couche de sauce sous la première feuille, sinon elle colle au plat et brûle.",
+          ar: "ديما طبقة صلصة تحت الورقة الأولى، وإلا تلزق في الصحن وتتحرق.",
+        },
+      },
+      {
+        text: {
+          fr: "Terminer par béchamel, mozzarella et parmesan, puis enfourner à 180 °C jusqu'à ce que le dessus soit doré et cloqué.",
+          ar: "كمّل بالبشاميل، الموزاريلا والبارميزان، وحطّها في الفرن على 180 درجة حتى يحمّر الوجه.",
+        },
+        minutes: 40,
+      },
+      {
+        text: {
+          fr: "Laisser reposer 20 minutes avant de couper : sortie du four, une lasagne s'effondre dans l'assiette.",
+          ar: "خلّيها ترتاح 20 دقيقة قبل ما تقطّع : كي تخرج من الفرن ديركت، تتهدّ في الصحن.",
+        },
+        minutes: 20,
+      },
+    ],
+    utensils: [
+      { fr: "Grand plat à gratin", ar: "صحن فرن كبير" },
+      { fr: "Marmite à fond épais", ar: "طنجرة قاعها غليظ" },
+      { fr: "Fouet", ar: "خفّاقة" },
+    ],
+    tips: [
+      {
+        fr: "La bolognaise d'origine mêle bœuf et porc : ici tout est au bœuf, et les 150 ml de lait compensent largement le gras manquant.",
+        ar: "البولونيز الأصلية فيها لحم بڨري وحلّوف : هنا الكل بڨري، و150 مل حليب يعوّضو الدسم الناقص.",
+      },
+      {
+        fr: "Le ragù est meilleur préparé la veille. Doublez les quantités et congelez : c'est la base de la moitié des plats de cette liste.",
+        ar: "الراڨو أطيب كي تعملو من البارح. ضاعف الكمية وجمّدو : هو أساس نص الماكلات في هالقائمة.",
+      },
+    ],
+  },
+
+  // ------------------------------------------------------------------ 12
+  {
+    slug: "tagliatelle-al-ragu",
+    name: { fr: "Tagliatelles au ragù", ar: "تالياتيلي بالراڨو" },
+    description: {
+      fr: "Le vrai mariage de la sauce bolognaise : des tagliatelles larges, pas des spaghetti. La surface plate retient le ragù au lieu de le laisser tomber au fond.",
+      ar: "الزواج الحقيقي متاع صلصة البولونيز : تالياتيلي عريضة، موش سباغيتي. السطح المسطّح يشدّ الراڨو بدل ما يطيح في القاع.",
+    },
+    region: { fr: "Bologne", ar: "بولونيا" },
+    cuisine: "italienne",
+    category: "plat",
+    serves: 4,
+    prepMinutes: 20,
+    cookMinutes: 135,
+    difficulty: 2,
+    months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    tags: ["invites", "enfants", "batch"],
+    ingredients: [
+      { id: "tagliatelle", qty: 400, unit: "g" },
+      { id: "viande_hachee", qty: 500, unit: "g", note: { fr: "bœuf", ar: "لحم بڨري" } },
+      { id: "oignon", qty: 1, unit: "piece" },
+      { id: "carotte", qty: 2, unit: "piece" },
+      { id: "celeri", qty: 1, unit: "botte" },
+      { id: "tomate_pelee", qty: 1, unit: "boite" },
+      { id: "concentre_tomate", qty: 2, unit: "cas" },
+      { id: "lait", qty: 150, unit: "ml" },
+      { id: "parmesan", qty: 80, unit: "g" },
+      { id: "huile_olive", qty: 4, unit: "cas" },
+      { id: "laurier", qty: 2, unit: "feuille" },
+      { id: "sel", qty: 2, unit: "cac" },
+    ],
+    steps: [
+      {
+        text: {
+          fr: "Faire fondre l'oignon, la carotte et le céleri hachés très fin dans l'huile d'olive, sans coloration.",
+          ar: "خلّي البصل، السفنارية والكرافس مفرومين رقاق يذوبو في زيت الزيتون بلا ما يحمّرو.",
+        },
+        minutes: 12,
+      },
+      {
+        text: {
+          fr: "Ajouter la viande, l'écraser à la cuillère et la laisser colorer après évaporation de son eau.",
+          ar: "زيد اللحم، اهرسو بالمغرفة وخلّيه يحمّر بعد ما ينشف ماءه.",
+        },
+        minutes: 12,
+      },
+      {
+        text: {
+          fr: "Verser le lait et le laisser absorber entièrement avant d'ajouter la tomate.",
+          ar: "زيد الحليب وخلّيه يتشرب بالكامل قبل ما تزيد الطماطم.",
+        },
+        minutes: 10,
+      },
+      {
+        text: {
+          fr: "Ajouter le concentré, les tomates pelées, le laurier et le sel, puis laisser mijoter à couvert au minimum.",
+          ar: "زيد الطماطم المصبرة، الطماطم المقشّرة، ورق الرند والملح، وخلّيها تطيب مغطّية على أصغر نار.",
+        },
+        minutes: 100,
+      },
+      {
+        text: {
+          fr: "Cuire les tagliatelles al dente, les égoutter et les verser directement dans la sauteuse de ragù.",
+          ar: "طيّب التالياتيلي، صفّيها وزيدها ديركت في طاجين الراڨو.",
+        },
+        minutes: 8,
+        tip: {
+          fr: "On mélange les pâtes à la sauce dans la poêle, jamais l'inverse : la sauce ne se verse pas sur une assiette de pâtes nues.",
+          ar: "المقرونة تتخلّط مع الصلصة في الطاجين، موش العكس : الصلصة ما تتصبّش على مقرونة عريانة في الصحن.",
+        },
+      },
+      {
+        text: {
+          fr: "Remuer une minute à feu vif avec un peu d'eau de cuisson, puis servir avec le parmesan râpé.",
+          ar: "حرّك دقيقة على نار قوية مع شوية ماء الطياب، وقدّمها مع البارميزان المبشور.",
+        },
+        minutes: 2,
+      },
+    ],
+    utensils: [
+      { fr: "Marmite à fond épais", ar: "طنجرة قاعها غليظ" },
+      { fr: "Sauteuse large", ar: "طاجين واسع" },
+    ],
+  },
+
+  // ------------------------------------------------------------------ 13
+  {
+    slug: "tagliatelle-champignons-creme",
+    name: { fr: "Tagliatelles crémeuses aux champignons", ar: "تالياتيلي بالفطر والكريمة" },
+    description: {
+      fr: "Champignons saisis à feu vif, crème, parmesan : trente minutes pour un plat qui a l'air d'en avoir demandé deux heures.",
+      ar: "فطر محمّر على نار قوية، كريمة، بارميزان : ثلاثين دقيقة لماكلة تبان كأنها خذات ساعتين.",
+    },
+    region: { fr: "Nord de l'Italie", ar: "شمال إيطاليا" },
+    cuisine: "italienne",
+    category: "plat",
+    serves: 4,
+    prepMinutes: 10,
+    cookMinutes: 20,
+    difficulty: 1,
+    months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    tags: ["rapide", "invites", "vegetarien"],
+    ingredients: [
+      { id: "tagliatelle", qty: 400, unit: "g" },
+      { id: "champignon", qty: 500, unit: "g" },
+      { id: "creme_liquide", qty: 200, unit: "ml" },
+      { id: "ail", qty: 3, unit: "gousse" },
+      { id: "beurre", qty: 30, unit: "g" },
+      { id: "huile_olive", qty: 2, unit: "cas" },
+      { id: "parmesan", qty: 80, unit: "g" },
+      { id: "persil", qty: 1, unit: "botte" },
+      { id: "poivre_noir", qty: 1, unit: "cac" },
+      { id: "sel", qty: 1, unit: "cac" },
+    ],
+    steps: [
+      {
+        text: {
+          fr: "Essuyer les champignons sans les laver et les couper en lamelles épaisses.",
+          ar: "امسح الفطر بلا ما تغسلو وقطّعو شرايح غليظة.",
+        },
+        minutes: 6,
+        tip: {
+          fr: "Les champignons boivent l'eau comme une éponge : lavés, ils rendront leur liquide dans la poêle au lieu de dorer.",
+          ar: "الفطر يشرب الماء كيف الإسفنجة : كان غسلتو، يفرّغ الماء في الطاجين بدل ما يحمّر.",
+        },
+      },
+      {
+        text: {
+          fr: "Les saisir à feu vif dans le beurre et l'huile, en une seule couche et sans remuer au début, jusqu'à ce qu'ils soient bien dorés.",
+          ar: "حمّرهم على نار قوية في الزبدة والزيت، طبقة وحدة وبلا ما تحرّك في البداية، حتى يحمّرو مليح.",
+        },
+        minutes: 8,
+        tip: {
+          fr: "Poêle bien chaude et pas trop chargée : entassés, les champignons bouillent au lieu de rôtir.",
+          ar: "طاجين سخون وما تعمّرهش برشة : كان تكدّسو، الفطر يغلي بدل ما يحمّر.",
+        },
+      },
+      {
+        text: {
+          fr: "Ajouter l'ail écrasé, saler, poivrer généreusement et laisser une minute.",
+          ar: "زيد الثوم المهروس، ملّح، زيد فلفل أكحل برشة وخلّيها دقيقة.",
+        },
+        minutes: 2,
+      },
+      {
+        text: {
+          fr: "Verser la crème et laisser réduire jusqu'à ce qu'elle nappe la cuillère.",
+          ar: "زيد الكريمة وخلّيها تنقص حتى تغطّي المغرفة.",
+        },
+        minutes: 5,
+      },
+      {
+        text: {
+          fr: "Ajouter les tagliatelles égouttées, le parmesan et un peu d'eau de cuisson, puis remuer hors du feu.",
+          ar: "زيد التالياتيلي مصفّية، البارميزان وشوية ماء الطياب، وحرّك بعيد على النار.",
+        },
+        minutes: 2,
+      },
+      {
+        text: {
+          fr: "Finir au persil ciselé et servir aussitôt.",
+          ar: "كمّل بالمعدنوس مقطّع وقدّمها ديركت.",
+        },
+      },
+    ],
+    utensils: [
+      { fr: "Grande poêle", ar: "طاجين كبير" },
+      { fr: "Casserole", ar: "طنجرة" },
+    ],
+  },
+
+  // ------------------------------------------------------------------ 14
+  {
+    slug: "gnocchi-sauce-tomate",
+    name: { fr: "Gnocchi maison, sauce tomate et mozzarella", ar: "نيوكي دار بالطماطم والموزاريلا" },
+    description: {
+      fr: "Des gnocchi de pommes de terre roulés à la main, une sauce tomate au basilic et de la mozzarella fondue par-dessus. Un plat d'enfance, en plus riche.",
+      ar: "نيوكي بالبطاطا معمولين باليد، صلصة طماطم بالحبق وموزاريلا ذايبة فوق. ماكلة الصغر، أما أدسم.",
+    },
+    region: { fr: "Nord de l'Italie", ar: "شمال إيطاليا" },
+    cuisine: "italienne",
+    category: "plat",
+    serves: 4,
+    prepMinutes: 45,
+    cookMinutes: 30,
+    difficulty: 3,
+    months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    tags: ["invites", "enfants", "vegetarien"],
+    ingredients: [
+      { id: "pomme_de_terre", qty: 1, unit: "kg", note: { fr: "à chair farineuse", ar: "بطاطا فارينوز" } },
+      { id: "farine", qty: 250, unit: "g" },
+      { id: "oeuf", qty: 1, unit: "piece" },
+      { id: "tomate_pelee", qty: 2, unit: "boite" },
+      { id: "mozzarella", qty: 200, unit: "g" },
+      { id: "parmesan", qty: 60, unit: "g" },
+      { id: "ail", qty: 2, unit: "gousse" },
+      { id: "basilic", qty: 1, unit: "botte" },
+      { id: "huile_olive", qty: 4, unit: "cas" },
+      { id: "sel", qty: 2, unit: "cac" },
+    ],
+    steps: [
+      {
+        text: {
+          fr: "Cuire les pommes de terre entières, avec la peau, dans l'eau salée jusqu'à ce qu'un couteau les traverse sans résistance.",
+          ar: "اسلق البطاطا صحيحة بقشرتها في ماء مالح حتى يدخل فيها السكين بساهل.",
+        },
+        minutes: 30,
+        tip: {
+          fr: "Avec la peau, impérativement : épluchées, elles se gorgent d'eau et il faudra ajouter tant de farine que les gnocchi deviendront du caoutchouc.",
+          ar: "بقشرتها بالسيف : كان قشّرتها، تشرب الماء وتلزمك فارينة برشة والنيوكي يولّيو قاسيين.",
+        },
+      },
+      {
+        text: {
+          fr: "Les éplucher encore chaudes et les écraser au presse-purée sur le plan de travail, puis laisser tiédir.",
+          ar: "قشّرها وهي سخونة واهرسها على الطاولة، وخلّيها تبرد شوية.",
+        },
+        minutes: 8,
+      },
+      {
+        text: {
+          fr: "Ajouter l'œuf battu, le sel et la farine petit à petit, en travaillant le moins possible jusqu'à obtenir une pâte souple.",
+          ar: "زيد العظمة مخفوقة، الملح والفارينة شوية بشوية، واعجن أقل ما تنجّم حتى تولّي عجينة طرية.",
+        },
+        minutes: 8,
+        tip: {
+          fr: "Moins on pétrit, plus les gnocchi sont légers. La farine indiquée est un maximum, pas un objectif.",
+          ar: "كل ما عجنت أقل، كل ما ولّاو النيوكي أخفّ. الفارينة المكتوبة هي الحدّ الأقصى موش هدف.",
+        },
+      },
+      {
+        text: {
+          fr: "Rouler des boudins de la grosseur d'un doigt, les couper en tronçons de 2 cm et les rouler sur le dos d'une fourchette.",
+          ar: "دحرج عصيّات قدّ الصبع، قطّعهم 2 سم ودحرجهم على ظهر الفرشيطة.",
+        },
+        minutes: 20,
+      },
+      {
+        text: {
+          fr: "Préparer la sauce : ail dans l'huile, tomates pelées écrasées, sel, et laisser réduire avec le basilic.",
+          ar: "حضّر الصلصة : ثوم في الزيت، طماطم مقشّرة مهروسة، ملح، وخلّيها تنشف مع الحبق.",
+        },
+        minutes: 20,
+      },
+      {
+        text: {
+          fr: "Pocher les gnocchi dans l'eau bouillante salée et les retirer à l'écumoire dès qu'ils remontent à la surface.",
+          ar: "اسلق النيوكي في ماء يغلي مالح ونحّيهم بالمغرفة المثقوبة كي يطلعو لفوق.",
+        },
+        minutes: 4,
+        tip: {
+          fr: "Ils remontent quand ils sont cuits : c'est le seul signal, et il ne trompe pas. Une minute de plus et ils se défont.",
+          ar: "كي يطلعو لفوق يكونو طابو : هاذي العلامة الوحيدة وما تغلطش. دقيقة زايدة ويتفكّكو.",
+        },
+      },
+      {
+        text: {
+          fr: "Les mélanger à la sauce, couvrir de mozzarella et de parmesan, et passer sous le gril jusqu'à ce que le fromage dore.",
+          ar: "خلّطهم مع الصلصة، غطّيهم بالموزاريلا والبارميزان، وحطّهم تحت الشوّاية حتى يحمّر الجبن.",
+        },
+        minutes: 8,
+      },
+    ],
+    utensils: [
+      { fr: "Presse-purée", ar: "هرّاسة" },
+      { fr: "Écumoire", ar: "مغرفة مثقوبة" },
+      { fr: "Plat à gratin", ar: "صحن فرن" },
+    ],
+  },
+
+  // ------------------------------------------------------------------ 15
+  {
+    slug: "risotto-champignons",
+    name: { fr: "Risotto aux champignons", ar: "ريزوتو بالفطر" },
+    description: {
+      fr: "Vingt minutes à remuer sans s'éloigner, et le riz devient une crème. Sans vin : le bouillon et un trait de citron en fin de cuisson font le travail.",
+      ar: "عشرين دقيقة تحرّك بلا ما تبعّد، والروز يولّي كريمة. بلا نبيذ : المرقة وشوية قارص في الآخر يعملو الخدمة.",
+    },
+    region: { fr: "Milan", ar: "ميلانو" },
+    cuisine: "italienne",
+    category: "plat",
+    serves: 4,
+    prepMinutes: 10,
+    cookMinutes: 30,
+    difficulty: 2,
+    months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    tags: ["invites", "vegetarien"],
+    ingredients: [
+      { id: "riz", qty: 350, unit: "g", note: { fr: "à grains ronds", ar: "روز حبّتو مدوّرة" } },
+      { id: "champignon", qty: 400, unit: "g" },
+      { id: "oignon", qty: 1, unit: "piece" },
+      { id: "beurre", qty: 60, unit: "g" },
+      { id: "parmesan", qty: 80, unit: "g" },
+      { id: "huile_olive", qty: 2, unit: "cas" },
+      { id: "citron", qty: 1, unit: "piece" },
+      { id: "persil", qty: 1, unit: "botte" },
+      { id: "sel", qty: 2, unit: "cac" },
+    ],
+    steps: [
+      {
+        text: {
+          fr: "Porter 1,5 litre d'eau salée à frémissement et la garder chaude à côté : c'est le bouillon.",
+          ar: "خلّي 1.5 لتر ماء مالح يسخن وخلّيه سخون على جنب : هاذي المرقة.",
+        },
+        minutes: 8,
+        tip: {
+          fr: "Le bouillon doit rester chaud. Froid, il stoppe la cuisson à chaque louche et le riz cuit en dents de scie.",
+          ar: "المرقة تبقى سخونة. كان باردة، توقّف الطياب في كل مغرفة والروز يطيب متفاوت.",
+        },
+      },
+      {
+        text: {
+          fr: "Faire dorer les champignons en lamelles à feu vif dans l'huile, saler et les réserver.",
+          ar: "حمّر الفطر مقطّع شرايح على نار قوية في الزيت، ملّح ونحّيه على جنب.",
+        },
+        minutes: 8,
+      },
+      {
+        text: {
+          fr: "Faire fondre l'oignon haché dans la moitié du beurre, puis ajouter le riz et le remuer jusqu'à ce que les grains deviennent translucides sur les bords.",
+          ar: "خلّي البصل المفروم يذوب في نص الزبدة، زيد الروز وحرّك حتى تولّي الحبّة شفّافة من الأطراف.",
+        },
+        minutes: 4,
+      },
+      {
+        text: {
+          fr: "Ajouter le bouillon une louche à la fois, en remuant, et n'en remettre que lorsque la précédente est absorbée.",
+          ar: "زيد المرقة مغرفة بمغرفة وأنت تحرّك، وما تزيدش الجاية كان ما تشربتش اللي قبلها.",
+        },
+        minutes: 18,
+        tip: {
+          fr: "C'est le frottement des grains qui libère l'amidon et crée la crème : sans remuer, on obtient du riz au bouillon.",
+          ar: "احتكاك الحبّات هو اللي يخرّج النشا ويعمل الكريمة : بلا تحريك، يجيك روز بالمرقة برك.",
+        },
+      },
+      {
+        text: {
+          fr: "Hors du feu, ajouter le reste du beurre froid, le parmesan et les champignons, puis battre vigoureusement.",
+          ar: "بعيد على النار، زيد باقي الزبدة الباردة، البارميزان والفطر، وحرّك بقوة.",
+        },
+        minutes: 2,
+        tip: {
+          fr: "Beurre froid hors du feu, battu énergiquement : c'est cette étape qui rend le risotto onctueux, pas la crème.",
+          ar: "زبدة باردة بعيد على النار وتحريك بقوة : هاذي الخطوة اللي تعطي النعومة، موش الكريمة.",
+        },
+      },
+      {
+        text: {
+          fr: "Ajouter quelques gouttes de citron, rectifier le sel et servir immédiatement : un risotto n'attend pas.",
+          ar: "زيد نقاط قارص، عدّل الملح وقدّمو ديركت : الريزوتو ما يستنّاش.",
+        },
+      },
+    ],
+    utensils: [
+      { fr: "Sauteuse large", ar: "طاجين واسع" },
+      { fr: "Casserole pour le bouillon", ar: "طنجرة للمرقة" },
+    ],
+    tips: [
+      {
+        fr: "Le riz italien à grains ronds donne le meilleur résultat ; à défaut, un riz rond ordinaire convient — évitez seulement le riz long, qui ne libère pas assez d'amidon.",
+        ar: "الروز الإيطالي المدوّر أحسن حاجة ؛ وإلا الروز المدوّر العادي يمشي — تجنّب الروز الطويل برك، ما يخرّجش نشا بركة.",
+      },
+    ],
+  },
+
+  // ------------------------------------------------------------------ 16
+  {
+    slug: "escalope-milanaise",
+    name: { fr: "Escalope milanaise", ar: "سكالوب ميلانيز" },
+    description: {
+      fr: "Panée, dorée au beurre, servie avec un quartier de citron. Trente minutes, et les enfants finissent leur assiette.",
+      ar: "مغلّفة بالبقسماط، محمّرة بالزبدة، مع قطعة قارص. ثلاثين دقيقة، والصغار يكمّلو صحنهم.",
+    },
+    region: { fr: "Milan", ar: "ميلانو" },
+    cuisine: "italienne",
+    category: "plat",
+    serves: 4,
+    prepMinutes: 15,
+    cookMinutes: 15,
+    difficulty: 1,
+    months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    tags: ["rapide", "enfants"],
+    ingredients: [
+      { id: "escalope_dinde", qty: 600, unit: "g" },
+      { id: "oeuf", qty: 2, unit: "piece" },
+      { id: "chapelure", qty: 150, unit: "g" },
+      { id: "farine", qty: 80, unit: "g" },
+      { id: "parmesan", qty: 40, unit: "g", optional: true },
+      { id: "beurre", qty: 60, unit: "g" },
+      { id: "huile_vegetale", qty: 100, unit: "ml" },
+      { id: "citron", qty: 1, unit: "piece" },
+      { id: "sel", qty: 1, unit: "cac" },
+      { id: "poivre_noir", qty: 1, unit: "cac" },
+    ],
+    steps: [
+      {
+        text: {
+          fr: "Aplatir les escalopes entre deux feuilles de papier jusqu'à une épaisseur régulière d'un demi-centimètre.",
+          ar: "افرد السكالوب بين ورقتين حتى يولّي سمكو متساوي نص سنتيمتر.",
+        },
+        minutes: 8,
+        tip: {
+          fr: "Une épaisseur régulière, c'est une cuisson régulière : sinon les bords sont secs quand le centre est encore cru.",
+          ar: "سمك متساوي يعني طياب متساوي : وإلا الأطراف تنشف والوسط يبقى نيّ.",
+        },
+      },
+      {
+        text: {
+          fr: "Préparer trois assiettes : farine salée et poivrée, œufs battus, chapelure mélangée au parmesan.",
+          ar: "حضّر ثلاثة صحون : فارينة بالملح والفلفل، عظم مخفوق، وبقسماط مخلّط بالبارميزان.",
+        },
+        minutes: 4,
+      },
+      {
+        text: {
+          fr: "Passer chaque escalope dans la farine, puis l'œuf, puis la chapelure en appuyant bien pour la faire adhérer.",
+          ar: "مرّر كل سكالوب في الفارينة، بعد العظم، بعد البقسماط واضغط مليح باش يلزق.",
+        },
+        minutes: 6,
+      },
+      {
+        text: {
+          fr: "Chauffer l'huile avec le beurre et cuire les escalopes 3 minutes de chaque côté, sans surcharger la poêle.",
+          ar: "سخّن الزيت مع الزبدة وطيّب السكالوب 3 دقائق من كل جيهة، بلا ما تعمّر الطاجين.",
+        },
+        minutes: 12,
+        tip: {
+          fr: "Le beurre seul brûlerait ; mêlé à l'huile, il donne le goût sans noircir.",
+          ar: "الزبدة وحدها تتحرق ؛ مخلّطة بالزيت، تعطي الذوق بلا ما تكحّل.",
+        },
+      },
+      {
+        text: {
+          fr: "Égoutter sur du papier absorbant et servir aussitôt avec des quartiers de citron.",
+          ar: "صفّيها في ورق وقدّمها ديركت مع قطع القارص.",
+        },
+      },
+    ],
+    utensils: [
+      { fr: "Grande poêle", ar: "طاجين كبير" },
+      { fr: "Maillet ou rouleau", ar: "مطرقة ولا نشّابة" },
+    ],
+  },
+
+  // ------------------------------------------------------------------ 17
+  {
+    slug: "pasta-al-forno",
+    name: { fr: "Pâtes au four gratinées", ar: "مقرونة في الفرن ڨراتان" },
+    description: {
+      fr: "Le plat du dimanche : des pâtes courtes, du ragù, de la béchamel et une croûte de fromage. C'est le cousin direct de la makrouna qu'on fait déjà ici.",
+      ar: "ماكلة نهار الأحد : مقرونة قصيرة، راڨو، بشاميل وقشرة جبن. هي بنت عم المقرونة اللي نعملوها هنا.",
+    },
+    region: { fr: "Sud de l'Italie", ar: "جنوب إيطاليا" },
+    cuisine: "italienne",
+    category: "plat",
+    serves: 6,
+    prepMinutes: 25,
+    cookMinutes: 70,
+    difficulty: 2,
+    months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    tags: ["invites", "enfants", "batch"],
+    ingredients: [
+      { id: "pates_makrouna", qty: 500, unit: "g" },
+      { id: "viande_hachee", qty: 500, unit: "g", note: { fr: "bœuf", ar: "لحم بڨري" } },
+      { id: "oignon", qty: 1, unit: "piece" },
+      { id: "tomate_pelee", qty: 2, unit: "boite" },
+      { id: "concentre_tomate", qty: 2, unit: "cas" },
+      { id: "lait", qty: 600, unit: "ml" },
+      { id: "beurre", qty: 60, unit: "g" },
+      { id: "farine", qty: 60, unit: "g" },
+      { id: "muscade", qty: 1, unit: "pincee" },
+      { id: "mozzarella", qty: 200, unit: "g" },
+      { id: "parmesan", qty: 80, unit: "g" },
+      { id: "huile_olive", qty: 3, unit: "cas" },
+      { id: "sel", qty: 2, unit: "cac" },
+    ],
+    steps: [
+      {
+        text: {
+          fr: "Faire revenir l'oignon puis la viande dans l'huile, ajouter le concentré et les tomates pelées, saler et laisser mijoter.",
+          ar: "شوّح البصل بعد اللحم في الزيت، زيد الطماطم المصبرة والمقشّرة، ملّح وخلّيها تطيب.",
+        },
+        minutes: 40,
+      },
+      {
+        text: {
+          fr: "Préparer la béchamel : beurre fondu, farine cuite 2 minutes, puis lait chaud versé en fouettant. Saler et muscader.",
+          ar: "حضّر البشاميل : زبدة ذايبة، فارينة تطيب دقيقتين، بعد حليب سخون وأنت تخفق. ملّح وزيد جوزة الطيب.",
+        },
+        minutes: 10,
+      },
+      {
+        text: {
+          fr: "Cuire les pâtes très fermes — 3 minutes de moins que le temps indiqué — puis les égoutter.",
+          ar: "طيّب المقرونة قاسية برشة — 3 دقائق أقل من الوقت المكتوب — وصفّيها.",
+        },
+        minutes: 8,
+        tip: {
+          fr: "Elles finiront de cuire au four en absorbant la sauce. Cuites à point ici, elles ressortiraient en bouillie.",
+          ar: "تكمّل طياب في الفرن وهي تشرب الصلصة. كان طيّبتها كامل هنا، تخرج مهروسة.",
+        },
+      },
+      {
+        text: {
+          fr: "Mélanger les pâtes au ragù et à la moitié de la béchamel, puis verser dans un plat beurré.",
+          ar: "خلّط المقرونة مع الراڨو ونص البشاميل، وفرّغها في صحن مدهون بالزبدة.",
+        },
+        minutes: 5,
+      },
+      {
+        text: {
+          fr: "Couvrir du reste de béchamel, de mozzarella et de parmesan, et enfourner à 190 °C jusqu'à formation d'une croûte dorée.",
+          ar: "غطّيها بباقي البشاميل، الموزاريلا والبارميزان، وحطّها في الفرن على 190 درجة حتى تولّي قشرة محمّرة.",
+        },
+        minutes: 30,
+      },
+      {
+        text: {
+          fr: "Laisser reposer 10 minutes avant de servir, pour que les parts se tiennent.",
+          ar: "خلّيها ترتاح 10 دقائق قبل التقديم، باش تشدّ القطع.",
+        },
+        minutes: 10,
+      },
+    ],
+    utensils: [
+      { fr: "Grand plat à gratin", ar: "صحن فرن كبير" },
+      { fr: "Fouet", ar: "خفّاقة" },
+    ],
+  },
+
+  // ------------------------------------------------------------------ 18
+  {
+    slug: "panna-cotta",
+    name: { fr: "Panna cotta au coulis", ar: "بانّا كوتّا بالكوليس" },
+    description: {
+      fr: "Trois ingrédients, dix minutes de travail, et un dessert de restaurant. Toute la difficulté tient dans la dose de gélatine.",
+      ar: "ثلاث مقادير، عشر دقائق خدمة، وحلو متاع ريستوران. الصعوبة الوحيدة هي قدّ الجيلاتين.",
+    },
+    region: { fr: "Piémont", ar: "بييمونتي" },
+    cuisine: "italienne",
+    category: "dessert",
+    serves: 6,
+    prepMinutes: 15,
+    cookMinutes: 10,
+    difficulty: 1,
+    months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    tags: ["invites", "enfants"],
+    ingredients: [
+      { id: "creme_liquide", qty: 500, unit: "ml" },
+      { id: "lait", qty: 100, unit: "ml" },
+      { id: "sucre", qty: 80, unit: "g" },
+      { id: "gelatine", qty: 4, unit: "piece" },
+      { id: "vanille", qty: 2, unit: "piece" },
+      { id: "citron", qty: 1, unit: "piece" },
+      { id: "grenade", qty: 200, unit: "g", optional: true, note: { fr: "ou fraises, selon la saison", ar: "ولا فراولة، حسب الفصل" } },
+    ],
+    steps: [
+      {
+        text: {
+          fr: "Faire ramollir les feuilles de gélatine dans un bol d'eau très froide.",
+          ar: "خلّي أوراق الجيلاتين تليّن في زلافة ماء بارد برشة.",
+        },
+        minutes: 6,
+      },
+      {
+        text: {
+          fr: "Chauffer la crème, le lait, le sucre et le sucre vanillé sans jamais laisser bouillir.",
+          ar: "سخّن الكريمة، الحليب، السكر والسكر بالفانيلا بلا ما تخلّيهم يغليو.",
+        },
+        minutes: 6,
+        tip: {
+          fr: "À ébullition, la crème tranche et le dessert devient granuleux : coupez le feu dès que ça frémit sur les bords.",
+          ar: "كان غلات، الكريمة تتقطّع والحلو يولّي محبّب : طفي النار كي تبدا تتحرّك في الأطراف.",
+        },
+      },
+      {
+        text: {
+          fr: "Hors du feu, essorer la gélatine entre les mains et la dissoudre complètement dans la crème chaude.",
+          ar: "بعيد على النار، اعصر الجيلاتين بيديك وذوّبو بالكامل في الكريمة السخونة.",
+        },
+        minutes: 3,
+        tip: {
+          fr: "Quatre feuilles pour 600 ml donnent une prise tout juste tremblante. Plus, et vous obtenez un flan caoutchouteux.",
+          ar: "أربعة أوراق لـ600 مل تعطي شدّة ترجرج بالكاد. أكثر، ويولّي كيف الفلان القاسي.",
+        },
+      },
+      {
+        text: {
+          fr: "Répartir dans les verrines et réfrigérer au moins 4 heures.",
+          ar: "وزّعها في الكيسان وحطّها في الفريجيدار 4 سوايع على الأقل.",
+        },
+        minutes: 240,
+      },
+      {
+        text: {
+          fr: "Écraser les fruits avec un peu de sucre et de jus de citron, puis en napper chaque verrine au moment de servir.",
+          ar: "اهرس الغلّة مع شوية سكر وعصير قارص، وحطّها فوق كل كاس وقت التقديم.",
+        },
+        minutes: 5,
+      },
+    ],
+    utensils: [
+      { fr: "Casserole", ar: "طنجرة" },
+      { fr: "Verrines", ar: "كيسان" },
+    ],
+  },
 ];
