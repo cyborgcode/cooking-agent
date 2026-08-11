@@ -46,7 +46,6 @@ export const RECIPES_ITALIENNES: Recipe[] = [
       { id: "huile_olive", qty: 6, unit: "cas" },
       { id: "piment_fort", qty: 1, unit: "piece" },
       { id: "persil", qty: 1, unit: "botte" },
-      { id: "parmesan", qty: 30, unit: "g", optional: true },
       { id: "sel", qty: 1, unit: "cas", note: { fr: "pour l'eau des pâtes", ar: "لماء المقرونة" } },
     ],
     steps: [
@@ -88,14 +87,20 @@ export const RECIPES_ITALIENNES: Recipe[] = [
       },
       {
         text: {
-          fr: "Hors du feu, ajouter le persil ciselé et servir immédiatement, avec du parmesan si vous en avez.",
-          ar: "بعيد على النار، زيد المعدنوس مقطّع وقدّمها ديركت، مع البارميزان كان عندك.",
+          fr: "Hors du feu, ajouter le persil ciselé et servir immédiatement.",
+          ar: "بعيد على النار، زيد المعدنوس مقطّع وقدّمها ديركت.",
         },
       },
     ],
     utensils: [
       { fr: "Grande casserole", ar: "طنجرة كبيرة" },
       { fr: "Poêle large", ar: "طاجين واسع" },
+    ],
+    tips: [
+      {
+        fr: "Pas de fromage sur une aglio e olio : le plat vit du contraste entre l'ail, le piment et l'huile, que le parmesan écraserait.",
+        ar: "ما تحطّش جبن على الأليو إي أوليو : الماكلة تعيش على التوازن بين الثوم، الحارّ والزيت، والبارميزان يغطّي عليهم.",
+      },
     ],
   },
 
@@ -531,8 +536,24 @@ export const RECIPES_ITALIENNES: Recipe[] = [
     tags: ["invites"],
     ingredients: [
       { id: "spaghetti", qty: 400, unit: "g" },
-      { id: "sardine", qty: 600, unit: "g", note: { fr: "en filets, sans arêtes", ar: "فيليه بلا عظام" } },
-      { id: "fenouil", qty: 1, unit: "piece" },
+      {
+        id: "sardine",
+        qty: 600,
+        unit: "g",
+        note: {
+          fr: "en filets — comptez 1,2 kg de sardines entières",
+          ar: "فيليه — احسب 1.2 كغ سردينة صحيحة",
+        },
+      },
+      {
+        id: "fenouil",
+        qty: 1,
+        unit: "piece",
+        note: {
+          fr: "bulbe, à défaut de fenouil sauvage",
+          ar: "بصلة البسباس، عوض البسباس البرّي",
+        },
+      },
       { id: "oignon", qty: 1, unit: "piece" },
       { id: "anchois", qty: 20, unit: "g" },
       { id: "raisin_sec", qty: 40, unit: "g" },
@@ -709,7 +730,15 @@ export const RECIPES_ITALIENNES: Recipe[] = [
     ingredients: [
       { id: "spaghetti", qty: 300, unit: "g" },
       { id: "dinde_fumee", qty: 150, unit: "g", note: { fr: "en lardons", ar: "مقطّع قطع صغيرة" } },
-      { id: "oeuf", qty: 3, unit: "piece", note: { fr: "jaunes + 1 œuf entier", ar: "الأصفر + عظمة كاملة" } },
+      {
+        id: "oeuf",
+        qty: 4,
+        unit: "piece",
+        note: {
+          fr: "3 jaunes + 1 œuf entier",
+          ar: "3 أصفار + عظمة كاملة",
+        },
+      },
       { id: "parmesan", qty: 60, unit: "g" },
       { id: "poivre_noir", qty: 1, unit: "cac" },
       { id: "huile_olive", qty: 2, unit: "cas" },
@@ -725,10 +754,14 @@ export const RECIPES_ITALIENNES: Recipe[] = [
       },
       {
         text: {
-          fr: "Battre les œufs avec le parmesan râpé et beaucoup de poivre noir, jusqu'à obtenir une crème épaisse.",
-          ar: "اخفق العظم مع البارميزان المبشور وبرشة فلفل أكحل، حتى تولّي كريمة ثخينة.",
+          fr: "Battre 3 jaunes et 1 œuf entier avec le parmesan râpé et beaucoup de poivre noir, jusqu'à obtenir une crème épaisse.",
+          ar: "اخفق 3 أصفار وعظمة كاملة مع البارميزان المبشور وبرشة فلفل أكحل، حتى تولّي كريمة ثخينة.",
         },
         minutes: 4,
+        tip: {
+          fr: "Les jaunes donnent l'onctuosité, l'œuf entier assez de liquide pour enrober les pâtes sans que la sauce ne fige.",
+          ar: "الأصفار يعطيو النعومة، والعظمة الكاملة تعطي السيولة باش تغطّي المقرونة بلا ما تشدّ الصلصة.",
+        },
       },
       {
         text: {
@@ -771,6 +804,10 @@ export const RECIPES_ITALIENNES: Recipe[] = [
         fr: "Ni crème ni lait dans une carbonara : c'est l'œuf et l'eau de cuisson qui font la sauce.",
         ar: "لا كريمة لا حليب في الكاربونارا : العظم وماء الطياب هوما اللي يعملو الصلصة.",
       },
+      {
+        fr: "Le fromage d'origine est le pecorino romano, plus salé et plus piquant. Le parmesan le remplace bien et se trouve partout ; si vous croisez du pecorino, prenez-le.",
+        ar: "الجبن الأصلي هو البيكورينو رومانو، أملح وأقوى. البارميزان يعوّضو مليح ويتلقى في كل بلاصة ؛ كان لقيت بيكورينو، خوذو.",
+      },
     ],
   },
 
@@ -793,7 +830,12 @@ export const RECIPES_ITALIENNES: Recipe[] = [
     tags: ["invites", "enfants"],
     ingredients: [
       { id: "ricotta", qty: 500, unit: "g" },
-      { id: "creme_fraiche", qty: 200, unit: "ml" },
+      {
+        id: "creme_liquide",
+        qty: 200,
+        unit: "ml",
+        note: { fr: "entière, bien froide", ar: "كاملة الدسم، باردة برشة" },
+      },
       { id: "sucre", qty: 120, unit: "g" },
       { id: "oeuf", qty: 3, unit: "piece" },
       { id: "boudoir", qty: 24, unit: "piece" },
@@ -821,10 +863,14 @@ export const RECIPES_ITALIENNES: Recipe[] = [
       },
       {
         text: {
-          fr: "Incorporer la ricotta bien égouttée, puis la crème fouettée, en soulevant délicatement la masse.",
-          ar: "زيد الريكوتا مصفّية مليح، بعد الكريمة المخفوقة، وحرّك من التحت للفوق بالشوية.",
+          fr: "Fouetter la crème liquide bien froide jusqu'à ce qu'elle tienne, puis l'incorporer à la ricotta égouttée en soulevant délicatement la masse.",
+          ar: "اخفق الكريمة السائلة الباردة حتى تشدّ، وزيدها للريكوتا المصفّية وحرّك من التحت للفوق بالشوية.",
         },
         minutes: 6,
+        tip: {
+          fr: "Seule la crème liquide entière monte. La crème fraîche épaisse, elle, ne foisonnera jamais : le bol et la crème doivent en plus sortir du réfrigérateur.",
+          ar: "الكريمة السائلة الكاملة برك هي اللي تطلع. الكريمة الثخينة ما تنفخش أبدا : والقصعة والكريمة لازمهم يخرجو من الفريجيدار.",
+        },
       },
       {
         text: {

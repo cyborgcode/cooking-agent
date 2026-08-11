@@ -854,6 +854,17 @@ export const INGREDIENTS: Ingredient[] = [
     priceUnit: "l",
   },
   {
+    id: "creme_liquide",
+    name: { fr: "Crème liquide entière", ar: "كريمة سائلة كاملة الدسم" },
+    category: "cremerie",
+    shop: "grande_surface",
+    price: 14,
+    priceUnit: "l",
+    // La crème épaisse ne monte pas : pour fouetter il faut de la liquide
+    // entière, à 30 % de matière grasse au minimum.
+    substitutes: ["creme_fraiche"],
+  },
+  {
     id: "basilic",
     name: { fr: "Basilic frais", ar: "حبق" },
     category: "herbe",
