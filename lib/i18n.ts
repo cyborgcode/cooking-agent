@@ -33,11 +33,11 @@ export const UI: Dict = {
   },
 
   // Navigation
-  navToday: { fr: "Aujourd'hui", ar: "اليوم" },
   navRecipes: { fr: "Recettes", ar: "الوصفات" },
   navWeek: { fr: "La semaine", ar: "الجمعة" },
   navShopping: { fr: "Courses", ar: "القضيان" },
-  navPantry: { fr: "Garde-manger", ar: "المونة" },
+  navPantry: { fr: "Ma cuisine", ar: "مطبخي" },
+  navPrices: { fr: "Prix", ar: "الأسعار" },
 
   // Formulaire
   people: { fr: "Convives", ar: "عدد الناس" },
@@ -125,6 +125,39 @@ export const UI: Dict = {
     fr: "Prix indicatifs du marché tunisien, en dinars.",
     ar: "أسعار تقريبية من السوق التونسي، بالدينار.",
   },
+  // Tableau de bord du garde-manger
+  dashboardTitle: { fr: "Ma cuisine", ar: "مطبخي" },
+  dashboardIntro: {
+    fr: "Dites ce que vous avez, l'agent cherche quoi en faire.",
+    ar: "قلّي شنوّة عندك، والشاف يلوّج شنوّة تعمل بيه.",
+  },
+  inMyPantry: { fr: "Dans mon garde-manger", ar: "في المونة متاعي" },
+  addIngredients: { fr: "Ajouter des produits", ar: "زيد منتوجات" },
+  emptyPantryTitle: { fr: "Votre garde-manger est vide", ar: "المونة متاعك فارغة" },
+  emptyPantryHelp: {
+    fr: "Cochez ce que vous avez chez vous : l'agent ne proposera plus que des plats que vous pouvez réellement faire.",
+    ar: "علّم على اللي عندك في الدار : الشاف ما يقترحش كان ماكلات تنجّم تعملها بالفعل.",
+  },
+  cookNow: { fr: "À faire tout de suite", ar: "تنجّم تعملها توّا" },
+  cookNowHelp: {
+    fr: "Rien à acheter : vous avez tout.",
+    ar: "ما تشري والو : عندك الكل.",
+  },
+  almostThere: { fr: "À deux ou trois courses près", ar: "ينقصك شويّة قضيان" },
+  missingLabel: { fr: "Il manque", ar: "ينقص" },
+  missingOne: { fr: "1 ingrédient", ar: "مقدار واحد" },
+  missingMany: { fr: "ingrédients", ar: "مقادير" },
+  checkStaples: { fr: "Vérifiez aussi", ar: "ثبّت زادة في" },
+  nothingCookable: {
+    fr: "Rien de réalisable pour l'instant. Ajoutez quelques produits.",
+    ar: "ما فمّاش شيء تنجّم تعملو توّا. زيد شويّة منتوجات.",
+  },
+  ofIngredients: { fr: "sur", ar: "من" },
+  askFromPantry: { fr: "Que me conseilles-tu ?", ar: "شنوّة تنصحني ؟" },
+  refine: { fr: "Affiner", ar: "عدّل" },
+  hideRefine: { fr: "Masquer", ar: "خبّي" },
+  seeAllRecipes: { fr: "Voir tout le répertoire", ar: "شوف الوصفات الكل" },
+
   // Prix du marché
   pricesTitle: { fr: "Prix du marché", ar: "أسعار السوق" },
   pricesHelp: {

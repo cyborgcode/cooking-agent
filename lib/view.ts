@@ -1,6 +1,7 @@
 import { INGREDIENTS, getIngredient } from "@/lib/data/ingredients";
 import { RECIPES, getRecipe } from "@/lib/data/recipes";
-import { recipeCost } from "@/lib/pricing";
+import { analyseCoverage, missingCost } from "@/lib/planner";
+import { costOf, recipeCost, scaleQty } from "@/lib/pricing";
 import { getRecipeImage, type RecipeImage } from "@/lib/recipe-images";
 import type {
   Bilingual,
@@ -133,6 +134,99 @@ export function toCookingPayload(recipe: Recipe): CookingPayload {
     tips: recipe.tips ?? [],
     image: getRecipeImage(recipe.slug),
   };
+}
+
+/** Un ingrédient qui manque pour réaliser une recette. */
+export interface MissingItem {
+  id: string;
+  name: Bilingual;
+  qty: number;
+  unit: Unit;
+  shop: ShopId;
+  cost: number;
+}
+
+/**
+ * Une recette confrontée au garde-manger.
+ *
+ * C'est le modèle central du tableau de bord : pour chaque plat, ce qu'on a
+ * déjà, ce qui manque, et ce que ça coûterait de compléter.
+ */
+export interface PantryMatch {
+  recipe: RecipeSummary;
+  /** Part des ingrédients déterminants déjà au placard (0–1). */
+  coverage: number;
+  /** Nombre d'ingrédients déterminants. */
+  essentials: number;
+  owned: number;
+  missing: MissingItem[];
+  /** Produits de base manquants : à vérifier, sans bloquer la recette. */
+  missingStaples: MissingItem[];
+  /** Coût de ce qu'il reste à acheter, en dinars. */
+  toBuyCost: number;
+}
+
+function toMissingItems(
+  recipe: Recipe,
+  items: { id: string; qty: number; unit: Unit }[],
+  people: number,
+): MissingItem[] {
+  return items.map((ri) => {
+    const ing = getIngredient(ri.id);
+    const qty = scaleQty(ri.qty, recipe.serves, people);
+    return {
+      id: ri.id,
+      name: ing?.name ?? { fr: ri.id, ar: ri.id },
+      qty,
+      unit: ri.unit,
+      shop: ing?.shop ?? "grande_surface",
+      cost: costOf(ri.id, qty, ri.unit),
+    };
+  });
+}
+
+/** Confronte une recette au garde-manger. */
+export function toPantryMatch(
+  recipe: Recipe,
+  pantry: Set<string>,
+  people: number,
+): PantryMatch {
+  const info = analyseCoverage(recipe, pantry);
+  return {
+    recipe: toSummary(recipe, people),
+    coverage: info.coverage,
+    essentials: info.essentials,
+    owned: info.owned,
+    missing: toMissingItems(recipe, info.missingEssentials, people),
+    missingStaples: toMissingItems(recipe, info.missingStaples, people),
+    toBuyCost: missingCost(recipe, info.missingEssentials, people),
+  };
+}
+
+/**
+ * Tout le répertoire confronté au garde-manger, du plus réalisable au moins.
+ *
+ * À couverture égale, on départage par la saison puis par le coût de ce
+ * qu'il reste à acheter : entre deux plats aussi faisables, autant proposer
+ * celui qui est de saison et qui coûte le moins à compléter.
+ */
+export function rankByPantry(
+  pantry: string[],
+  people: number,
+  month: number,
+  cuisine?: Cuisine | null,
+): PantryMatch[] {
+  const owned = new Set(pantry);
+
+  return RECIPES.filter((r) => !cuisine || (r.cuisine ?? "tunisienne") === cuisine)
+    .map((r) => toPantryMatch(r, owned, people))
+    .sort((a, b) => {
+      if (b.coverage !== a.coverage) return b.coverage - a.coverage;
+      const seasonA = a.recipe.months.includes(month) ? 1 : 0;
+      const seasonB = b.recipe.months.includes(month) ? 1 : 0;
+      if (seasonB !== seasonA) return seasonB - seasonA;
+      return a.toBuyCost - b.toBuyCost;
+    });
 }
 
 export interface IngredientOption {

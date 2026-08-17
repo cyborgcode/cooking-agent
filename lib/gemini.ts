@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { getIngredient, inSeason } from "@/lib/data/ingredients";
 import { getRecipe } from "@/lib/data/recipes";
-import { finalizeSuggestion, planLocally, rankRecipes } from "@/lib/planner";
+import { analyseCoverage, finalizeSuggestion, planLocally, rankRecipes } from "@/lib/planner";
 import { recipeCost } from "@/lib/pricing";
 import { monthName } from "@/lib/i18n";
 import { TUNISIAN_DOMAINS, formatForPrompt, tavilySearch, type WebSearch } from "@/lib/tavily";
@@ -25,6 +25,7 @@ const SYSTEM_INSTRUCTION = `Tu es un chef tunisien qui aide une famille à déci
 
 Règles absolues :
 - Tu choisis UNIQUEMENT un plat parmi la liste de candidats fournie, en renvoyant son "slug" exact.
+- **Le garde-manger prime sur tout le reste.** L'utilisateur veut d'abord cuisiner ce qu'il a déjà chez lui. À qualité comparable, préfère toujours le plat qui demande le moins de courses, et dis-le dans ta justification. Ne propose un plat qui exige beaucoup d'achats que si aucun autre ne convient.
 - Tu n'inventes jamais de prix, de quantité ni de recette : ces données sont calculées ailleurs.
 - Tu raisonnes sur le marché tunisien : produits de saison, disponibilité chez l'attar, le boucher ou au marché, et prix en dinars.
 
@@ -107,13 +108,25 @@ async function fetchMarketContext(month: number): Promise<WebSearch | null> {
 function buildPrompt(req: MealRequest, web: WebSearch | null): string {
   const candidates = rankRecipes(req).slice(0, CANDIDATES);
 
+  const owned = new Set(req.pantry);
+
   const lines = candidates.map(({ recipe, cost }) => {
     const minutes = recipe.prepMinutes + recipe.cookMinutes;
     const main = recipe.ingredients
       .slice(0, 5)
       .map((ri) => getIngredient(ri.id)?.name.fr ?? ri.id)
       .join(", ");
-    return `- ${recipe.slug} | ${recipe.name.fr} (${recipe.name.ar}) | ${recipe.cuisine ?? "tunisienne"} | ${recipe.category} | ${minutes} min | ~${cost.toFixed(1)} DT pour ${req.people} pers. | difficulté ${recipe.difficulty}/3 | tags: ${recipe.tags.join(", ") || "aucun"} | principaux ingrédients : ${main}`;
+
+    // Ce qui manque réellement pour ce plat : l'information la plus utile
+    // au modèle, puisque c'est elle qui doit décider.
+    const { missingEssentials } = analyseCoverage(recipe, owned);
+    const manque = owned.size === 0
+      ? "garde-manger non renseigné"
+      : missingEssentials.length === 0
+        ? "RIEN À ACHETER"
+        : `à acheter : ${missingEssentials.map((ri) => getIngredient(ri.id)?.name.fr ?? ri.id).join(", ")}`;
+
+    return `- ${recipe.slug} | ${recipe.name.fr} (${recipe.name.ar}) | ${recipe.cuisine ?? "tunisienne"} | ${recipe.category} | ${minutes} min | ~${cost.toFixed(1)} DT pour ${req.people} pers. | difficulté ${recipe.difficulty}/3 | tags: ${recipe.tags.join(", ") || "aucun"} | ${manque} | principaux ingrédients : ${main}`;
   });
 
   const seasonal = inSeason(req.month)

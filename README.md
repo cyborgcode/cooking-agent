@@ -1,9 +1,11 @@
 # Chef Tounsi — الشاف التونسي
 
-Agent de cuisine pour le quotidien tunisien. Il répond à une seule question,
-tous les jours : **qu'est-ce qu'on mange aujourd'hui ?** — puis il accompagne
-le repas jusqu'au bout : les étapes, les minuteurs, la liste de courses par
-commerce et le budget en dinars.
+Agent de cuisine pour le quotidien tunisien. Il part de **ce que vous avez
+déjà chez vous** : vous cochez votre garde-manger, il vous dit ce que vous
+pouvez faire tout de suite, ce qui ne demande que deux ou trois courses, et
+combien elles coûteraient. Puis il accompagne le repas jusqu'au bout : les
+étapes, les minuteurs, la liste de courses par commerce et le budget en
+dinars.
 
 Interface bilingue **français / arabe tunisien (derja)**, avec bascule
 droite-à-gauche complète. Aucun emoji dans l'interface : toutes les icônes
@@ -16,17 +18,20 @@ choix est mémorisé et appliqué avant le premier rendu, sans clignotement.
 
 ## Ce que fait l'agent
 
-- **Le plat du jour** — vous indiquez le nombre de convives, le budget, le
-  temps disponible et vos contraintes (rapide, végétarien, Ramadan, pour
-  recevoir…). L'agent propose un plat, explique son choix, et adapte la
-  recette à la saison et à votre garde-manger.
+- **Le garde-manger est la page d'accueil.** C'est de lui que tout part :
+  vous cochez ce que vous avez, et l'application classe le répertoire en
+  deux listes — *à faire tout de suite* (rien à acheter) et *à deux ou trois
+  courses près*, où chaque plat affiche précisément ce qui manque, en
+  quantité et en dinars.
+- **Le plat du jour** — l'agent choisit en partant du garde-manger, puis du
+  reste : saison, budget, temps disponible, contraintes (rapide, végétarien,
+  Ramadan, pour recevoir…). À qualité comparable, il préfère toujours le plat
+  qui demande le moins de courses, et le dit.
 - **Mode cuisine pas à pas** — une étape à la fois, en gros caractères, avec
   un minuteur par étape de cuisson et les astuces au bon moment.
 - **Liste de courses par commerce** — organisée dans l'ordre du parcours
   réel : marché, boucherie, poissonnerie, attar, boulangerie, grande surface.
   Chaque ligne est chiffrée, avec un sous-total par commerce.
-- **Garde-manger** — ce que vous cochez sort des courses et pèse dans le
-  choix du plat.
 - **Menu de la semaine** — sept plats variés, sans répétition, de saison.
 - **Prix du marché en direct** — l'agent va chercher sur le web ce que valent
   réellement les produits en ce moment, et affiche l'écart avec l'estimation
@@ -110,9 +115,11 @@ présente dans les extraits — sans quoi ils sont écartés.
 
 ```
 app/
-  page.tsx                  Le plat du jour
+  page.tsx                  Tableau de bord du garde-manger (accueil)
   recettes/                 Catalogue + fiche et mode cuisine
-  semaine/  courses/  garde-manger/
+  semaine/  courses/  prix/
+  garde-manger/             Redirection vers l'accueil (ancienne adresse)
+  api/cuisinable/           Ce que le garde-manger permet de faire
   api/agent/                Suggestion du jour (Gemini → local)
   api/semaine/              Menu de la semaine (local)
   api/courses/              Liste de courses consolidée
@@ -150,6 +157,21 @@ Toute icône affichée passe par `components/icons.tsx`, qui associe un nom
 métier (`market`, `harissa`, `ramadan`, `timer`…) à un composant lucide.
 Pour changer un pictogramme, on modifie une ligne de ce registre — et rien
 d'autre dans l'application.
+
+### Comment se calcule « à faire tout de suite »
+
+Une recette est réalisable quand tous ses ingrédients **déterminants** sont
+au garde-manger. Sont exclus de ce calcul :
+
+- les ingrédients **facultatifs** de la recette ;
+- les **produits de base** — sel, huile, farine, pain, épices… Personne ne
+  décide d'un repas selon qu'il lui reste du sel, et les compter rendrait la
+  liste vide en permanence. Ils sont tout de même rappelés sous chaque plat,
+  en « vérifiez aussi ».
+
+Sans garde-manger renseigné, l'application n'affiche aucune liste plutôt
+qu'un classement trompeur : il ne manque pas « deux ingrédients », il manque
+tout.
 
 ## Photos des recettes
 

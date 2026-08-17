@@ -1,7 +1,13 @@
 import { getIngredient } from "@/lib/data/ingredients";
 import { RECIPES, getRecipe } from "@/lib/data/recipes";
-import { buildShoppingList, recipeCost } from "@/lib/pricing";
-import type { Adaptation, MealRequest, MealSuggestion, Recipe } from "@/lib/types";
+import { buildShoppingList, costOf, recipeCost, scaleQty } from "@/lib/pricing";
+import type {
+  Adaptation,
+  MealRequest,
+  MealSuggestion,
+  Recipe,
+  RecipeIngredient,
+} from "@/lib/types";
 
 /**
  * Planificateur local : choisit un plat sans appeler de modèle.
@@ -28,12 +34,52 @@ function hash(str: string): number {
   return Math.abs(h);
 }
 
-/** Part des ingrédients de la recette déjà présents au garde-manger (0–1). */
-function pantryCoverage(recipe: Recipe, pantry: Set<string>): number {
+/**
+ * Ce que le garde-manger couvre d'une recette.
+ *
+ * Le calcul ne porte que sur les ingrédients *déterminants* : ni les
+ * facultatifs, ni les produits de base. Sans cette distinction, une recette
+ * serait déclarée « impossible » parce qu'il manque le sel — et personne ne
+ * coche trente épices avant de cuisiner.
+ */
+export interface CoverageInfo {
+  /** Nombre d'ingrédients déterminants. */
+  essentials: number;
+  /** Combien sont déjà au placard. */
+  owned: number;
+  /** Part couverte, de 0 à 1. */
+  coverage: number;
+  missingEssentials: RecipeIngredient[];
+  /** Produits de base manquants : signalés, mais ils ne pénalisent pas. */
+  missingStaples: RecipeIngredient[];
+}
+
+export function analyseCoverage(recipe: Recipe, pantry: Set<string>): CoverageInfo {
   const required = recipe.ingredients.filter((i) => !i.optional);
-  if (required.length === 0) return 0;
-  const owned = required.filter((i) => pantry.has(i.id)).length;
-  return owned / required.length;
+  const essentials = required.filter((i) => !getIngredient(i.id)?.staple);
+  const staples = required.filter((i) => getIngredient(i.id)?.staple);
+
+  const owned = essentials.filter((i) => pantry.has(i.id)).length;
+
+  return {
+    essentials: essentials.length,
+    owned,
+    coverage: essentials.length === 0 ? 1 : owned / essentials.length,
+    missingEssentials: essentials.filter((i) => !pantry.has(i.id)),
+    missingStaples: staples.filter((i) => !pantry.has(i.id)),
+  };
+}
+
+/** Coût de ce qu'il reste à acheter pour une recette, en dinars. */
+export function missingCost(
+  recipe: Recipe,
+  missing: RecipeIngredient[],
+  people: number,
+): number {
+  return missing.reduce(
+    (sum, ri) => sum + costOf(ri.id, scaleQty(ri.qty, recipe.serves, people), ri.unit),
+    0,
+  );
 }
 
 /** Part des ingrédients frais qui sont de saison ce mois-ci (0–1). */
@@ -84,10 +130,26 @@ function scoreRecipe(recipe: Recipe, req: MealRequest, seed: string): ScoredReci
     }
   }
 
-  // Garde-manger : privilégier ce qu'on a déjà.
-  const coverage = pantryCoverage(recipe, pantry);
-  score += coverage * 30;
-  if (coverage >= 0.5) reasons.push("utilise ce que vous avez déjà");
+  // Garde-manger : c'est le critère qui décide.
+  //
+  // Le poids est volontairement hors d'échelle par rapport aux autres :
+  // cuisiner ce qu'on a déjà prime sur la saison, le budget et le temps.
+  // Quand le placard est vide, tous les plats ont une couverture nulle et
+  // ce terme s'annule de lui-même — les autres critères reprennent la main.
+  const { coverage, missingEssentials, essentials } = analyseCoverage(recipe, pantry);
+
+  if (pantry.size > 0) {
+    score += coverage * 120;
+    // Chaque ingrédient manquant est une course en plus : on les compte.
+    score -= missingEssentials.length * 12;
+
+    if (essentials > 0 && missingEssentials.length === 0) {
+      score += 40; // réalisable sans sortir acheter quoi que ce soit
+      reasons.push("réalisable avec ce que vous avez");
+    } else if (missingEssentials.length <= 2) {
+      reasons.push(`il ne manque que ${missingEssentials.length} ingrédient${missingEssentials.length > 1 ? "s" : ""}`);
+    }
+  }
 
   // Contraintes explicites (végétarien, ramadan, enfants…).
   for (const tag of req.tags) {

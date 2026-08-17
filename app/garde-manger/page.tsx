@@ -1,15 +1,9 @@
-import type { Metadata } from "next";
-import { PantryEditor } from "@/components/pantry-editor";
-import { ingredientOptions } from "@/lib/view";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Mon garde-manger — Chef Tounsi",
-};
-
-export const dynamic = "force-dynamic";
-
+/**
+ * Le garde-manger est devenu la page d'accueil.
+ * L'ancienne adresse reste valable : les liens et favoris ne cassent pas.
+ */
 export default function PantryPage() {
-  return (
-    <PantryEditor ingredients={ingredientOptions()} month={new Date().getMonth() + 1} />
-  );
+  redirect("/");
 }

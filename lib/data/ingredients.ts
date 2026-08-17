@@ -812,6 +812,10 @@ export const INGREDIENTS: Ingredient[] = [
     price: 0.3,
     priceUnit: "piece",
     subsidized: true,
+    // Le pain s'achète tous les jours : personne ne décide d'un repas selon
+    // qu'il en a ou non. Le compter comme déterminant rendrait « réalisable
+    // tout de suite » presque toujours vide.
+    staple: true,
   },
   {
     id: "khobz_tabouna",

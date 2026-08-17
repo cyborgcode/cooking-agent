@@ -15,11 +15,12 @@ interface NavItem {
 }
 
 const NAV: NavItem[] = [
-  { href: "/", labelKey: "navToday", icon: "today" },
+  // Le garde-manger est l'accueil : c'est de lui que part tout le reste.
+  { href: "/", labelKey: "navPantry", icon: "pantry" },
   { href: "/recettes", labelKey: "navRecipes", icon: "recipes" },
   { href: "/semaine", labelKey: "navWeek", icon: "week" },
   { href: "/courses", labelKey: "navShopping", icon: "shopping" },
-  { href: "/garde-manger", labelKey: "navPantry", icon: "pantry" },
+  { href: "/prix", labelKey: "navPrices", icon: "price" },
 ];
 
 function isActive(pathname: string, href: string): boolean {

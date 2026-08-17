@@ -1,14 +1,18 @@
-import { TodayClient } from "@/components/today-client";
+import { PantryDashboard } from "@/components/pantry-dashboard";
 import { inSeason } from "@/lib/data/ingredients";
+import { ingredientOptions } from "@/lib/view";
 
-// La saisonnalité dépend du jour : la page se rend à chaque requête.
+// Le tableau de bord dépend du mois : il se rend à chaque requête.
 export const dynamic = "force-dynamic";
 
-export default function TodayPage() {
+export default function DashboardPage() {
   const month = new Date().getMonth() + 1;
-  const seasonal = inSeason(month)
-    .slice(0, 12)
-    .map((ingredient) => ingredient.name);
 
-  return <TodayClient month={month} seasonal={seasonal} />;
+  return (
+    <PantryDashboard
+      ingredients={ingredientOptions()}
+      month={month}
+      seasonal={inSeason(month).slice(0, 8).map((i) => i.name)}
+    />
+  );
 }
